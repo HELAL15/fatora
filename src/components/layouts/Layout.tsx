@@ -2,6 +2,7 @@ import { useLayoutEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router';
 import Aside from './Aside';
 import Menu from './Menu';
+import Header from './Header';
 
 const Layout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -44,12 +45,13 @@ const Layout = () => {
           />
         </Aside>
         <div className="flex-grow w-3/4 overflow-x-clip relative ">
-          {/* <Header
-            headerTitle={`${t('hello')} ${name}`}
+          <Header
+            headerTitle="fff"
             collapsed={collapsed}
             toggleCollapsed={toggleCollapsed}
             toggleClose={toggleClose}
-          /> */}
+          />
+
           <main className="max-lg:w-dvw">
             {/* <BreadCrumb /> */}
             <Outlet />

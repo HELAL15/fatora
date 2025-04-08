@@ -1,5 +1,5 @@
 import { FC, memo, useEffect, useState } from 'react';
-import { NavLink, useLocation, useParams } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Menu as MenuAntd } from 'antd';
 import { IoClose } from 'react-icons/io5';
 import type { MenuProps } from 'antd';
@@ -34,14 +34,13 @@ const Menu: FC<IProps> = ({ collapsed, toggleClose, setClose }) => {
   }, [location, isMobileOrTablet, setClose]);
 
   const { t } = useTranslation();
-  const { id } = useParams();
 
   const items: MenuItem[] = [
     {
-      key: '/dashboard',
+      key: '/',
       icon: <LuLayoutDashboard className="!text-xl" />,
       label: (
-        <NavLink className={'text-sm font-normal'} to="/dashboard">
+        <NavLink className={'text-sm font-normal'} to="/">
           {t('aside.home')}
         </NavLink>
       )
@@ -114,190 +113,6 @@ const Menu: FC<IProps> = ({ collapsed, toggleClose, setClose }) => {
         //   )
         // }
       ]
-    },
-    {
-      key: 'sub1',
-      label: (
-        <span className="text-base font-normal">{t('aside.org.index')}</span>
-      ),
-      icon: (
-        <i className="text-lg">
-          <LuLayoutDashboard />
-        </i>
-      ),
-      children: [
-        {
-          key: `/dashboard/organizations${id ? `/${id}` : ''}`,
-          label: (
-            <NavLink
-              className={'text-sm font-normal'}
-              to="/dashboard/organizations"
-            >
-              {t('aside.org.org')}
-            </NavLink>
-          )
-        },
-        {
-          key: '/dashboard/organizations/add-new-organization',
-          label: (
-            <NavLink
-              className={'text-sm font-normal'}
-              to="/dashboard/organizations/add-new-organization"
-            >
-              {t('aside.org.add')}
-            </NavLink>
-          )
-        }
-      ]
-    },
-    {
-      key: 'sub2',
-      label: (
-        <span className="text-base font-normal">
-          {t('aside.products.index')}
-        </span>
-      ),
-      icon: (
-        <i className="text-lg">
-          <LuLayoutDashboard />
-        </i>
-      ),
-      children: [
-        {
-          key: '/dashboard/brands',
-          label: (
-            <NavLink className={'text-sm font-normal'} to="/dashboard/brands">
-              {t('aside.products.brands')}
-            </NavLink>
-          )
-        },
-        {
-          key: `/dashboard/categories${id ? `/${id}` : ''}`,
-          label: (
-            <NavLink
-              className={'text-sm font-normal'}
-              to="/dashboard/categories"
-            >
-              {t('aside.products.categories')}
-            </NavLink>
-          )
-        },
-        {
-          key: '/dashboard/products',
-          label: (
-            <NavLink className={'text-sm font-normal'} to="/dashboard/products">
-              {t('aside.products.products')}
-            </NavLink>
-          )
-        },
-        {
-          key: '/dashboard/colors',
-          label: (
-            <NavLink className={'text-sm font-normal'} to="/dashboard/colors">
-              {t('aside.products.colors')}
-            </NavLink>
-          )
-        }
-      ]
-    },
-    {
-      key: 'sub3',
-      label: (
-        <span className="text-base font-normal">
-          {t('aside.courses.index')}
-        </span>
-      ),
-      icon: (
-        <i className="text-lg">
-          <LuLayoutDashboard />
-        </i>
-      ),
-      children: [
-        {
-          key: '/dashboard/courses',
-          label: (
-            <NavLink className={'text-sm font-normal'} to="/dashboard/courses">
-              {t('aside.courses.courses')}
-            </NavLink>
-          )
-        }
-      ]
-    },
-    {
-      key: 'sub4',
-      label: (
-        <span className="text-base font-normal">
-          {t('aside.contacts.index')}
-        </span>
-      ),
-      icon: (
-        <i className="text-lg">
-          <LuLayoutDashboard />
-        </i>
-      ),
-      children: [
-        {
-          key: '/dashboard/contacts',
-          label: (
-            <NavLink className={'text-sm font-normal'} to="/dashboard/contacts">
-              {t('aside.contacts.contacts')}
-            </NavLink>
-          )
-        }
-      ]
-    },
-    {
-      key: 'sub6',
-      label: (
-        <span className="text-base font-normal">{t('aside.orders.index')}</span>
-      ),
-      icon: (
-        <i className="text-lg">
-          <LuLayoutDashboard />
-        </i>
-      ),
-      children: [
-        {
-          key: '/dashboard/orders',
-          label: (
-            <NavLink className={'text-sm font-normal'} to="/dashboard/orders">
-              {t('aside.orders.orders')}
-            </NavLink>
-          )
-        },
-        {
-          key: '/dashboard/payment',
-          label: (
-            <NavLink className={'text-sm font-normal'} to="/dashboard/payment">
-              {t('aside.orders.payment')}
-            </NavLink>
-          )
-        }
-      ]
-    },
-    {
-      key: 'sub7',
-      label: (
-        <span className="text-base font-normal">{t('aside.terms.index')}</span>
-      ),
-      icon: (
-        <i className="text-lg">
-          <LuLayoutDashboard />
-        </i>
-      ),
-      children: [
-        {
-          key: '/dashboard/terms&conditions',
-          label: (
-            <NavLink
-              className={'text-sm font-normal'}
-              to="/dashboard/terms&conditions"
-            >
-              {t('aside.terms.terms')}
-            </NavLink>
-          )
-        }
-      ]
     }
   ];
 
@@ -312,11 +127,12 @@ const Menu: FC<IProps> = ({ collapsed, toggleClose, setClose }) => {
             collapsed ? 'w-full' : 'w-[180px]'
           }  h-[45px] object-contain`}
         /> */}
+        <h2 className="text-center text-3xl w-full">Fatora</h2>
         <button onClick={toggleClose} className="block lg:hidden">
           <IoClose />
         </button>
       </div>
-      <nav className=" flex-grow overflow-y-auto">
+      <nav className=" flex-grow overflow-y-auto flex flex-col= justify-center">
         <MenuAntd
           selectedKeys={[selectedKey]}
           mode="inline"

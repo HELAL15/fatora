@@ -13,7 +13,7 @@ const AntdProvider: FC<IProps> = ({ children }) => {
   const lang = i18n.language;
   const direction = lang === 'ar' ? 'rtl' : 'ltr';
   const font = lang === 'ar' ? 'Tajawal' : 'sh-hello';
-  const color = '#333333';
+  const color = 'rgb(41 94 86)';
 
   const theme = {
     token: {
