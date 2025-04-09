@@ -20,9 +20,9 @@ const ChangeLang = () => {
   return (
     <button
       onClick={changeLang}
-      className="flex items-center gap-1 cursor-pointer"
+      className="flex  items-center text-sm justify-center gap-1 cursor-pointer bg-primary duration-300 hover:bg-secondary rounded-lg  text-white w-12 h-9 "
     >
-      <TfiWorld className="text-xl" />
+      <TfiWorld className="text-base" />
       {language === 'ar' ? 'En' : 'Ar'}
     </button>
   );

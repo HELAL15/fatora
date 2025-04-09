@@ -32,7 +32,7 @@ module.exports = {
           secondary: "#FFFFFF",
         },
         primary: {
-          DEFAULT: "#333333",
+          DEFAULT: "rgb(41 94 86)",
           hover: "#141414",
           white: "#FFFFFF",
         },
@@ -42,7 +42,7 @@ module.exports = {
         },
 
         secondary:{
-          DEFAULT:'#292D32',
+          DEFAULT:'rgb(219 128 40)',
         },
 
         userIo:{
@@ -87,8 +87,8 @@ module.exports = {
         '.container-fluid': {
           width: '100%',
           maxWidth: '100%',
-          paddingLeft: '30px',
-          paddingRight: '30px',
+          paddingLeft: '25px',
+          paddingRight: '25px',
         
         },
       });

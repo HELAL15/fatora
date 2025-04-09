@@ -44,7 +44,7 @@ const Layout = () => {
             toggleCollapsed={toggleCollapsed}
           />
         </Aside>
-        <div className="flex-grow w-3/4 overflow-x-clip relative ">
+        <div className="flex-grow w-3/4 overflow-x-clip  ">
           <Header
             headerTitle="fff"
             collapsed={collapsed}
@@ -52,7 +52,7 @@ const Layout = () => {
             toggleClose={toggleClose}
           />
 
-          <main className="max-lg:w-dvw">
+          <main className="max-lg:w-dvw relative">
             {/* <BreadCrumb /> */}
             <Outlet />
           </main>

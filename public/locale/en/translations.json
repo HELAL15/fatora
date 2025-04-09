@@ -1,3 +1,38 @@
 {
-  
+  "fatora":"fatora",
+  "aside": {
+    "home":"home",
+    "system":"system setting"
+  },
+  "tag":{
+    "system":"system setting"
+  },
+  "sysHeading":{
+    "structure":"Company structure data",
+    "bank": "Bank Details",
+    "sales": "Sales Policy",
+    "branchesManagement": "Branch Management"
+  },
+  "structure":{
+    "structure":"Company data",
+    "employees":"employees",
+    "branches":"branches"
+  },
+  "bank":{
+    "banks":"banks",
+    "accounts":"bank accounts",
+    "types":"Types of Bank Cards",
+    "cards":"Bank Cards"
+  },
+  "sales":{
+    "tax":"tax policy",
+    "zakat":"zakat and income"
+  },
+  "branchesManagement":{
+    "invoice":"invoice data",
+    "decimal":"decimal number",
+    "congratulatory":"manage congratulatory sentences"
+  },
+  "from":"from",
+  "incorporation":"incorporation"
 }

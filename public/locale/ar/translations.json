@@ -1,3 +1,37 @@
 {
-  
+  "fatora":"فاتورة",
+  "aside":{
+    "home":"الصفحة الرئيسية",
+    "system":"إعدادات النظام"
+  },
+  "tag":{
+    "system":"تأسيس النظام"
+  },
+  "sysHeading":{
+    "structure":"بيانات هيكل الشركة",
+    "bank":"بيانات البنوك",
+    "sales":"سياسة المبيعات",
+    "branchesManagement":"إدارة الفروع"
+  },
+  "structure": {
+  "structure": "بيانات الشركة",
+  "employees": "الموظفين",
+  "branches": "الفروع"
+},"bank": {
+  "banks": "البنوك",
+  "accounts": "الحسابات البنكية",
+  "types": "أنواع بطاقات البنك",
+  "cards": "بطاقات البنك"
+},
+"sales": {
+  "tax": "سياسة الضريبة",
+  "zakat": "الزكاة والدخل"
+},
+"branchesManagement": {
+  "invoice": "بيانات الفاتورة",
+  "decimal": "الأرقام العشرية",
+  "congratulatory": "إدارة جُمل التهنئة"
+},
+  "from":"من",
+  "incorporation":"من التأسيس"
 }
