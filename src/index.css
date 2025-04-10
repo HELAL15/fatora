@@ -17,7 +17,7 @@ section {
 
 /* table  */
 .ant-table-thead .ant-table-cell {
-  @apply !text-white !bg-primary;
+  @apply !text-primary !bg-primary/20;
 }
 
 .ant-pagination-item.ant-pagination-item-active {
