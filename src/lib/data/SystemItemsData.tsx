@@ -78,7 +78,7 @@ const systemItems = [
       {
         id: 1,
         title: 'invoice',
-        add: true,
+        add: false,
         view: '/system/invoice-data'
       },
       {
@@ -92,6 +92,18 @@ const systemItems = [
         title: 'congratulatory',
         add: true,
         view: '/system/congratulatory'
+      }
+    ]
+  },
+  {
+    id: 5,
+    title: 'categories',
+    items: [
+      {
+        id: 1,
+        title: 'products',
+        add: true,
+        view: '/system/products'
       }
     ]
   }

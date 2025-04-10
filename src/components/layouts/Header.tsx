@@ -48,7 +48,7 @@ const Header: FC<IProps> = ({ collapsed, toggleClose }) => {
                 ''
               )}
 
-              <div className="max-md:hidden flex items-center gap-2 bg-gray-200 rounded-lg px-4 py-1">
+              <div className="max-md:hidden flex items-center gap-2 bg-light rounded-lg px-4 py-1">
                 <h3 className=" text-sm font-medium">
                   {/* {' '}
                   {headerTitle ? (

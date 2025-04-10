@@ -92,7 +92,7 @@ const Menu: FC<IProps> = ({
           }  h-[45px] object-contain`}
         /> */}
         <h2
-          className={`text-center text-primary font-bold duration-300 w-full ${
+          className={` text-start lg:text-center text-primary font-bold duration-300 w-full ${
             collapsed ? 'text-lg' : 'text-4xl'
           }`}
         >

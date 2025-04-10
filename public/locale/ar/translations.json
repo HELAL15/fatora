@@ -4,6 +4,9 @@
     "home":"الصفحة الرئيسية",
     "system":"إعدادات النظام"
   },
+  "table":{
+    "id":"التسلسل"
+  },
   "tag":{
     "system":"تأسيس النظام"
   },
@@ -11,7 +14,8 @@
     "structure":"بيانات هيكل الشركة",
     "bank":"بيانات البنوك",
     "sales":"سياسة المبيعات",
-    "branchesManagement":"إدارة الفروع"
+    "branchesManagement":"إدارة الفروع",
+    "categories":"الأصناف"
   },
   "structure": {
   "structure": "بيانات الشركة",
@@ -31,6 +35,9 @@
   "invoice": "بيانات الفاتورة",
   "decimal": "الأرقام العشرية",
   "congratulatory": "إدارة جُمل التهنئة"
+},
+"categories":{
+  "products":"المنتجات"
 },
   "from":"من",
   "incorporation":"من التأسيس"

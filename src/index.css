@@ -14,3 +14,27 @@ body {
 section {
   @apply my-10;
 }
+
+/* table  */
+.ant-table-thead .ant-table-cell {
+  @apply !text-white !bg-primary;
+}
+
+.ant-pagination-item.ant-pagination-item-active {
+  @apply !bg-primary !text-white;
+}
+
+.ant-pagination .ant-pagination-item-active a {
+  @apply !text-white;
+}
+
+.ant-table-wrapper .ant-table-pagination.ant-pagination {
+  @apply !m-0 !py-3 bg-white rounded-ee-rounded rounded-es-rounded;
+}
+
+.table-actions .ant-dropdown-menu {
+  @apply !p-2 !rounded-rounded !min-w-48 !divide-y !divide-slate-200;
+}
+.table-actions .ant-dropdown-menu-item {
+  @apply !rounded-none;
+}
