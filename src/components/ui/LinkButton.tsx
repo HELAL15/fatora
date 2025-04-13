@@ -11,7 +11,10 @@ const LinkButton: FC<ButtonProps> = ({
 }) => {
   return (
     <>
-      <Link to={href} className={clsx(` cursor-pointer ${cx}`)}>
+      <Link
+        to={href}
+        className={clsx(`duration-300  active:scale-90 cursor-pointer ${cx}`)}
+      >
         {title && <span>{title}</span>}
         {icon && icon}
       </Link>

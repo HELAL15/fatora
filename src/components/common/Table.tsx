@@ -15,12 +15,16 @@ interface IProps {
   cols?: ColumnType[] | undefined;
   endPoint?: string;
   delEndPoint?: string;
+  hasContainer?: boolean;
   getMenu?: (
     id: string,
     record: FieldValues
   ) => Array<{ key: string; label: ReactNode }>;
   query?: string | undefined;
   hasSelectRows?: boolean;
+  hasSperateData?: boolean;
+  sperateData?: FieldValues;
+  noPagination?: boolean;
 }
 interface TableItem {
   id: string;
@@ -35,7 +39,11 @@ const CustomTable: FC<IProps> = ({
   endPoint,
   query,
   getMenu,
-  hasSelectRows = false
+  hasSelectRows = false,
+  hasContainer = true,
+  hasSperateData = false,
+  sperateData = [],
+  noPagination = true
 }) => {
   // vars
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,6 +62,8 @@ const CustomTable: FC<IProps> = ({
       ),
     retry: false
   });
+
+  const tableDataView = hasSperateData ? sperateData : table?.data;
   useEffect(() => {
     setCurrentPage(1); // Reset to page 1 when the query changes
   }, [query]);
@@ -65,7 +75,9 @@ const CustomTable: FC<IProps> = ({
           dataIndex: 'rowNumber',
           align: 'center',
           render: (_: unknown, __: unknown, index: number) =>
-            table?.meta?.total - ((currentPage - 1) * pageSize + index),
+            hasSperateData
+              ? index + 1
+              : (currentPage - 1) * pageSize + index + 1,
 
           fixed: 'left'
         },
@@ -87,7 +99,9 @@ const CustomTable: FC<IProps> = ({
           dataIndex: 'rowNumber',
           align: 'center',
           render: (_: unknown, __: unknown, index: number) =>
-            table?.meta?.total - ((currentPage - 1) * pageSize + index),
+            hasSperateData
+              ? index + 1
+              : (currentPage - 1) * pageSize + index + 1,
 
           fixed: 'left'
         },
@@ -95,7 +109,7 @@ const CustomTable: FC<IProps> = ({
       ];
 
   // handle data
-  const source = table?.data?.map((item: TableItem) => {
+  const source = tableDataView?.map((item: TableItem) => {
     const dynamicFields = (cols ?? []).reduce<Record<string, number>>(
       (acc: Record<string, number>, col: ColumnType) => {
         const column = col as ColumnType;
@@ -142,32 +156,36 @@ const CustomTable: FC<IProps> = ({
   return (
     <>
       <section className="pt-0 ">
-        <div className="container-fluid">
-          <div className=" flex-grow">
-            <Table
-              size="small"
-              bordered
-              className="mt-4 "
-              loading={{
-                spinning: loading,
-                size: 'large'
-              }}
-              rowSelection={hasSelectRows ? rowSelection : undefined}
-              dataSource={source}
-              columns={columns}
-              pagination={{
-                current: currentPage,
-                showSizeChanger: true,
-                pageSizeOptions: ['10', '25', '50', '100'],
-                pageSize,
-                total: table?.meta?.total || 0,
-                onChange: handlePaginationChange,
-                onShowSizeChange: handlePaginationChange,
-                position: ['bottomCenter']
-              }}
-              scroll={{ x: 'max-content' }}
-            />
-          </div>
+        <div
+          className={hasContainer ? 'container-fluid flex-grow' : 'flex-grow'}
+        >
+          <Table
+            size="small"
+            bordered
+            className="mt-4 "
+            loading={{
+              spinning: loading,
+              size: 'large'
+            }}
+            rowSelection={hasSelectRows ? rowSelection : undefined}
+            dataSource={source}
+            columns={columns}
+            pagination={
+              !noPagination
+                ? {
+                    current: currentPage,
+                    showSizeChanger: true,
+                    pageSizeOptions: ['10', '25', '50', '100'],
+                    pageSize,
+                    total: table?.meta?.total || 0,
+                    onChange: handlePaginationChange,
+                    onShowSizeChange: handlePaginationChange,
+                    position: ['bottomCenter']
+                  }
+                : false
+            }
+            scroll={{ x: 'max-content' }}
+          />
         </div>
       </section>
     </>

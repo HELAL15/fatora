@@ -1,32 +1,22 @@
 const InvoicePaymentMethodsData = [
   {
     id: 1,
-    img: 'visa',
+    img: '/src/assets/banks/visa.png',
     price: 73
   },
   {
     id: 2,
-    img: 'mastercard',
+    img: '/src/assets/banks/mada.png',
     price: 73
   },
   {
     id: 3,
-    img: 'americanexpress',
+    img: '/src/assets/banks/master.png',
     price: 73
   },
   {
     id: 4,
-    img: 'mada',
-    price: 73
-  },
-  {
-    id: 5,
-    img: 'cash',
-    price: 73
-  },
-  {
-    id: 6,
-    img: 'stc',
+    img: '/src/assets/banks/cash.png',
     price: 73
   }
 ];

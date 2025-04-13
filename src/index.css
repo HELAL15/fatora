@@ -14,7 +14,12 @@ body {
 section {
   @apply my-10;
 }
-
+.ant-drawer .ant-drawer-header-title {
+  @apply !justify-between;
+}
+.ant-drawer .ant-drawer-title {
+  @apply text-end;
+}
 /* table  */
 .ant-table-thead .ant-table-cell {
   @apply !text-primary !bg-primary/20;

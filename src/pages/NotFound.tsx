@@ -1,17 +1,9 @@
 import { FaFileAlt } from 'react-icons/fa';
 import { IoArrowBack } from 'react-icons/io5';
-import { useNavigate } from 'react-router';
+import useGoBack from '../lib/utils/GoBack';
 
 const NotFound = () => {
-  const navigate = useNavigate();
-
-  const handleGoBack = () => {
-    if (window.history.length > 1) {
-      window.history.back();
-    } else {
-      navigate('/');
-    }
-  };
+  const goBack = useGoBack();
 
   return (
     <div className="h-[89dvh] flex items-center justify-center p-4">
@@ -29,7 +21,7 @@ const NotFound = () => {
             changed, or is temporarily unavailable.
           </p>
           <button
-            onClick={handleGoBack}
+            onClick={goBack}
             className="inline-flex items-center px-6 py-3 cursor-pointer bg-secondary text-white rounded-lg hover:bg-secondary/90 transition-colors duration-200 font-medium"
           >
             Go Back

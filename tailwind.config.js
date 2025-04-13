@@ -87,8 +87,8 @@ module.exports = {
         '.container-fluid': {
           width: '100%',
           maxWidth: '100%',
-          paddingLeft: '25px',
-          paddingRight: '25px',
+          paddingLeft: '20px',
+          paddingRight: '20px',
         
         },
       });

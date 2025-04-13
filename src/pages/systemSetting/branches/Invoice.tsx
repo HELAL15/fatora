@@ -1,9 +1,16 @@
-import { TableColumnsType } from 'antd';
+import { Drawer, TableColumnsType } from 'antd';
 import invoiceLogo from '../../../assets/logo-invoice.png';
 import Table from '../../../components/common/Table';
 import TitleInfo from '../../../components/common/TitleInfo';
 import BankTypePrice from '../../../components/ui/BankTypePrice';
 import InvoicePaymentMethodsData from '../../../lib/data/InvoicePaymentMethodsData';
+import SectionWithContainer from '../../../components/common/SectionWithContainer';
+import Img from '../../../components/ui/Img';
+import Button from '../../../components/ui/Button';
+import useGoBack from '../../../lib/utils/GoBack';
+import { useState } from 'react';
+import { FieldValues, useForm } from 'react-hook-form';
+import FormInput from '../../../components/common/FormInput';
 
 const Invoice = () => {
   const methods = InvoicePaymentMethodsData.map((method) => {
@@ -26,76 +33,128 @@ const Invoice = () => {
     }
   ];
 
+  const data = [
+    {
+      id: 1,
+      product: 'dummy data',
+      quantity: 200
+    },
+    {
+      id: 2,
+      product: 'dummy data',
+      quantity: 200
+    }
+  ];
+
+  const goBack = useGoBack();
+
+  const [open, setOpen] = useState(false);
+  const onClose = () => {
+    setOpen(false);
+  };
+  const onOpen = () => {
+    setOpen(true);
+  };
+
+  const { control, handleSubmit, watch } = useForm({
+    mode: 'all',
+    defaultValues: {
+      img: '',
+      name: 'فاتورة ضريبية مبسطة',
+      mainColor: '',
+      secondaryColor: ''
+    }
+  });
+
+  const { name, img } = watch();
+
+  const onSubmit = (data: FieldValues) => {
+    console.log(data);
+  };
+
   return (
     <>
-      <section>
-        <div className="container-fluid">
-          <div className="bg-white pt-8  rounded-lg space-y-6">
-            <div className="flex items-start justify-between flex-wrap mx-10 gap-4 rounded-2xl border-2 border-light px-12 py-10">
-              <img
-                className="object-contain max-md:flex-grow max-md:w-full md:max-w-[250px]  "
-                src={invoiceLogo}
-                alt="invoice logo"
-                loading="lazy"
-                draggable="false"
-              />
-              <div className="invoice-name space-y-2 text-center">
-                <h1 className="text-primary font-bold text-2xl">
-                  فاتورة ضريبية مبسطة
-                </h1>
-                <p className="invoice-date flex items-center justify-center gap-1 ">
-                  <span className="font-bold">رقم الفاتورة : </span>
-                  <span>24</span>
-                </p>
-              </div>
-              <div className="date space-y-2">
-                <p className="invoice-date flex items-center gap-1">
-                  <span className="font-bold">تاريخ الفاتورة : </span>
-                  <span> 2025-01-09</span>
-                </p>
-                <p className="invoice-date flex items-center gap-1">
-                  <span className="font-bold"> اسم العميل : </span>
-                  <span>احمد هلال</span>
-                </p>
-                <p className="invoice-date flex items-center gap-1">
-                  <span className="font-bold"> رقم الجوال : </span>
-                  <span>01222810589</span>
-                </p>
-              </div>
-            </div>
-            <Table cols={columns} />
-            <div className="sub-info flex items-center justify-between mx-10 flex-wrap gap-4  px-8 py-10">
-              <div className="seller-name text-center ">
-                <p className="text-sm">اسم البائع</p>
-                <p className="font-bold text-lg">احمد هلال</p>
-              </div>
-              <div className="qr-code size-28 bg-primary"></div>
-              <div className="methods flex items-center gap-4">{methods}</div>
-            </div>
-            <div className="congrats relative py-3 px-4 border-3 mx-10 border-light rounded-xl">
-              <p className="font-bold bg-light rounded-lg px-8 py-2 text-center">
-                كل عام وانتم بخير
-              </p>
-              {/* white space top */}
-              <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-[10px] bg-white z-20 rounded-b-full" />
-
-              {/* white space bottom */}
-              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-20 h-[10px] bg-white z-20 rounded-t-full" />
-            </div>
-
-            <div className="bg-primary text-white py-5 px-4 grid place-items-center w-full  ">
-              <div className="w-[850px] mx-auto grid grid-cols-2 lg:grid-cols-3 justify-items-center place-content-center gap-4">
-                <TitleInfo title="العنوان" desc="الرياض , السعودية" />
-                <TitleInfo title="الإيميل" desc="1ahmedhelal1@gmail.com" />
-                <TitleInfo title="الرقم الضريبي" desc="45673" />
-                <TitleInfo title="رقم المحل" desc="34566" />
-                <TitleInfo title="س.ت" desc="5345345" />
-                <TitleInfo title="الهاتف" desc="23432" />
-              </div>
+      <Drawer title="تعديل الفاتورة" onClose={onClose} open={open}>
+        <form action="" onSubmit={handleSubmit(onSubmit)}>
+          <FormInput
+            control={control}
+            name="name"
+            label="اسم الفاتورة"
+            placeholder="invoice name"
+          />
+        </form>
+      </Drawer>
+      <SectionWithContainer>
+        <div className="contain-fluid mb-8 ">
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <h1 className="text-xl font-bold">بيانات الفاتورة</h1>
+            <div className="flex items-center gap-2">
+              <Button title="تعديل الفاتورة" onClick={onOpen} />
+              <Button title="عودة" outline onClick={goBack} />
             </div>
           </div>
         </div>
-      </section>
+        <div className="bg-white pt-8 px-4 md:px-8 lg:px-10  rounded-lg space-y-6">
+          <div className="flex items-center justify-center md:justify-between flex-wrap gap-6 md:gap-4 rounded-2xl border-2 border-light px-6 md:px-8 lg:px-12 py-10">
+            <Img
+              cx="object-contain max-md:flex-grow max-md:w-full md:max-w-[250px]"
+              src={img ? img : invoiceLogo}
+              alt="invoice logo"
+            />
+            <div className="invoice-name space-y-2 text-center">
+              <h2 className="text-primary font-bold text-2xl">{name}</h2>
+              <TitleInfo
+                title="رقم الفاتورة"
+                desc="24"
+                cx="invoice-date  justify-center "
+              />
+            </div>
+            <div className="date space-y-2">
+              <TitleInfo title="تاريخ الفاتورة" desc="2025-01-09" />
+              <TitleInfo title="اسم العميل" desc="احمد هلال" />
+              <TitleInfo title="رقم الجوال" desc="01222810589" />
+            </div>
+          </div>
+          <Table
+            hasContainer={false}
+            cols={columns}
+            hasSperateData={true}
+            sperateData={data}
+            noPagination
+          />
+          <div className="sub-info flex items-center justify-between  flex-wrap gap-4  px-8 py-10">
+            <div className="seller-name text-center max-md:w-full max-md:flex-grow ">
+              <p className="text-sm">اسم البائع</p>
+              <p className="font-bold text-lg">احمد هلال</p>
+            </div>
+            <div className="qr-code size-28 bg-primary max-md:mx-auto" />
+            <div className="methods flex items-center justify-between flex-wrap gap-4">
+              {methods}
+            </div>
+          </div>
+          <div className="congrats relative py-3 px-4 border-3  border-light rounded-xl">
+            <p className="font-bold bg-light rounded-lg px-8 py-2 text-center">
+              كل عام وانتم بخير
+            </p>
+            {/* white space top */}
+            <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-[10px] bg-white z-20 rounded-b-full" />
+
+            {/* white space bottom */}
+            <span className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-20 h-[10px] bg-white z-20 rounded-t-full" />
+          </div>
+
+          <div className="bg-primary text-white py-5 px-4 grid place-items-center w-full  ">
+            <div className="lg:w-[850px] lg:mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center place-content-center gap-4">
+              <TitleInfo title="العنوان" desc="الرياض , السعودية" />
+              <TitleInfo title="الإيميل" desc="1ahmedhelal1@gmail.com" />
+              <TitleInfo title="الرقم الضريبي" desc="45673" />
+              <TitleInfo title="رقم المحل" desc="34566" />
+              <TitleInfo title="س.ت" desc="5345345" />
+              <TitleInfo title="الهاتف" desc="23432" />
+            </div>
+          </div>
+        </div>
+      </SectionWithContainer>
     </>
   );
 };

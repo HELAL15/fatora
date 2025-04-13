@@ -16,7 +16,7 @@ const SystemCard: FC<IProps> = ({ title = '', add, view = '' }) => {
     <div className="bg-secondary text-white py-7 px-5 rounded-lg flex items-center justify-between gap-4">
       <p className="text-sm font-semibold">{t(title)}</p>
       <div className="flex items-center gap-3">
-        {add && <Button icon={<FaPlus />} cx="text-xl" />}
+        {add && <Button icon={<FaPlus />} cx="text-xl !p-0 bg-transparent" />}
         {view && (
           <LinkButton
             href={view}
