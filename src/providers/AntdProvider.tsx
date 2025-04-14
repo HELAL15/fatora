@@ -12,7 +12,7 @@ const AntdProvider: FC<IProps> = ({ children }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const direction = lang === 'ar' ? 'rtl' : 'ltr';
-  const font = lang === 'ar' ? 'Tajawal' : 'sh-hello';
+  const font = 'Almarai';
   const color = 'rgb(41 94 86)';
 
   const theme = {

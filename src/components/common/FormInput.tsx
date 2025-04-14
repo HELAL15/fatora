@@ -7,6 +7,7 @@ import {
   FieldPath,
   FieldError
 } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 interface CustomInputProps<T extends FieldValues> {
   control: Control<T>; // Use the FormData type here
@@ -27,6 +28,7 @@ function FormInput<T extends FieldValues>({
   errors,
   label = ''
 }: CustomInputProps<T>) {
+  const { t } = useTranslation();
   const error = errors?.[name] as FieldError | undefined;
   const errorMessage = error?.message;
   return (
@@ -38,17 +40,17 @@ function FormInput<T extends FieldValues>({
         render={({ field }) => (
           <div className="space-y-4">
             <div className="form-input">
-              <label htmlFor={name} className="font-semibold px-2">
-                {label}
+              <label htmlFor={name} className="font-semibold px-1">
+                {t(`input.label.${label}`)}
               </label>
               <Input
                 {...field}
                 id={name}
                 type={type}
-                placeholder={placeholder}
+                placeholder={t(`input.placeholder.${placeholder}`)}
                 value={field.value || ''}
                 className={clsx(
-                  `!shadow-none !outline-none disabled:bg-[rgba(0_0_0_0.04)] h-[40px] md:h-[45px] disabled:text-primary disabled:cursor-not-allowed  w-full px-4 py-3 text-base rounded-[5px] border border-s-slate-200 duration-300 disabled:hover:border-slate-200 hover:border-primary disabled:focus:border-slate-200 focus:border-primary ${
+                  `!shadow-none !mt-1 !bg-light !outline-none disabled:bg-[rgba(0_0_0_0.04)] disabled:text-primary disabled:cursor-not-allowed  w-full px-4 !py-3 text-base rounded-rounded border !border-transparent  duration-300 disabled:hover:border-slate-200 hover:border-primary disabled:focus:border-slate-200 focus:!border-primary ${
                     errorMessage ? 'border-red-500' : ''
                   } ${type === 'color' ? '!h-[50px] py-0' : ''} `
                 )}

@@ -8,26 +8,23 @@ import Cookies from 'js-cookie';
  * @returns An array with [cookieValue, setCookie, removeCookie]
  */
 function useCookie(key: string, initialValue: string | undefined) {
-  // Retrieve the cookie value if available, otherwise use the initial value
   const [cookieValue, setCookieValue] = useState<string | undefined>(() => {
     const storedValue = Cookies.get(key);
     return storedValue ? storedValue : initialValue;
   });
 
-  // Set the cookie with an optional expiration time
   const setCookie = (value: string | undefined, options = {}) => {
     if (value !== undefined) {
-      Cookies.set(key, value, options); // Set the cookie only if the value is not undefined
-      setCookieValue(value); // Update the state with the new cookie value
+      Cookies.set(key, value, options);
+      setCookieValue(value);
     } else {
-      removeCookie(); // Remove the cookie if value is undefined
+      removeCookie();
     }
   };
 
-  // Remove the cookie
   const removeCookie = () => {
     Cookies.remove(key);
-    setCookieValue(undefined); // Clear the state when cookie is removed
+    setCookieValue(undefined);
   };
 
   return [cookieValue, setCookie, removeCookie];

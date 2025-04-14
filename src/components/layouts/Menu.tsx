@@ -47,7 +47,7 @@ const Menu: FC<IProps> = ({
       label: (
         <NavLink
           className={({ isActive }) =>
-            `text-base  ${isActive ? 'font-bold' : 'font-medium'}`
+            `  ${isActive ? 'font-semibold' : 'font-medium'}`
           }
           to="/"
         >
@@ -61,7 +61,7 @@ const Menu: FC<IProps> = ({
       label: (
         <NavLink
           className={({ isActive }) =>
-            `text-base ${isActive ? 'font-bold' : 'font-medium '}`
+            ` ${isActive ? 'font-semibold' : 'font-medium '}`
           }
           to="/system"
         >

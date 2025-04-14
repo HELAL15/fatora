@@ -7,6 +7,7 @@ import { TableRowSelection } from 'antd/es/table/interface';
 import { FieldValues } from 'react-hook-form';
 import { getData } from '../../lib/utils/SendRequestes';
 import NewActions from './NewActions';
+import clsx from 'clsx';
 
 /**
  * ==> props interface
@@ -25,6 +26,8 @@ interface IProps {
   hasSperateData?: boolean;
   sperateData?: FieldValues;
   noPagination?: boolean;
+  customClass?: string;
+  color?: string;
 }
 interface TableItem {
   id: string;
@@ -43,7 +46,9 @@ const CustomTable: FC<IProps> = ({
   hasContainer = true,
   hasSperateData = false,
   sperateData = [],
-  noPagination = true
+  noPagination = true,
+  customClass = '',
+  color = ''
 }) => {
   // vars
   const [currentPage, setCurrentPage] = useState(1);
@@ -162,10 +167,13 @@ const CustomTable: FC<IProps> = ({
           <Table
             size="small"
             bordered
-            className="mt-4 "
+            className={clsx(`mt-4 ${customClass}`)}
             loading={{
               spinning: loading,
               size: 'large'
+            }}
+            style={{
+              ['--primary' as string]: color
             }}
             rowSelection={hasSelectRows ? rowSelection : undefined}
             dataSource={source}

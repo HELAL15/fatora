@@ -7,6 +7,27 @@
   "table":{
     "id":"id"
   },
+  "uploader":{
+    "title":"Click or drag to upload files",
+    "invoiceLogo":"Attach the invoice logo"
+  },
+  "button":{
+    "save":"save",
+    "back":"back",
+    "cancel":"cancel",
+    "edit":"edit",
+    "editInvoice":"edit invoice",
+    "uploadFile":"upload files",
+    "pickColor":"pick color"
+  },
+  "input":{
+    "label":{
+      "invoiceName":"invoice name"
+    },
+    "placeholder":{
+      "invoiceName":"enter invoice name"
+    }
+  },
   "tag":{
     "system":"system setting"
   },

@@ -2,6 +2,10 @@
 @import 'tailwindcss';
 @config '../tailwind.config.js';
 
+:root {
+  --primary: #295e56;
+}
+
 * {
   box-sizing: border-box;
   scroll-behavior: smooth;
@@ -9,11 +13,21 @@
 
 body {
   font-family: 'Almarai', sans-serif;
+  @apply capitalize;
 }
 
 section {
   @apply my-10;
 }
+
+/* uploader  */
+.image-upload-form .ant-upload.ant-upload-select {
+  width: 100% !important;
+  height: 120px !important;
+  border-width: 2px !important;
+}
+
+/* drawer */
 .ant-drawer .ant-drawer-header-title {
   @apply !justify-between;
 }
@@ -22,7 +36,9 @@ section {
 }
 /* table  */
 .ant-table-thead .ant-table-cell {
-  @apply !text-primary !bg-primary/20;
+  /* @apply !text-primary !bg-primary/20; */
+  color: white !important;
+  background-color: var(--primary) !important;
 }
 
 .ant-pagination-item.ant-pagination-item-active {

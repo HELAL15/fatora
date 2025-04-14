@@ -6,7 +6,8 @@ interface ButtonProps {
   icon?:ReactNode;
   href?:string;
   onClick?:()=>void;
-  outline?:boolean
+  outline?:boolean;
+  type?:"submit" | "reset" | "button" | undefined;
 }
 
 export default ButtonProps;

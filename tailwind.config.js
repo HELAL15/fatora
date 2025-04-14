@@ -32,7 +32,7 @@ module.exports = {
           secondary: "#FFFFFF",
         },
         primary: {
-          DEFAULT: "rgb(41 94 86)",
+          DEFAULT: "#295E56",
           hover: "#141414",
           white: "#FFFFFF",
         },

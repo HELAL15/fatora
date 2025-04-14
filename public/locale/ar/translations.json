@@ -7,6 +7,27 @@
   "table":{
     "id":"التسلسل"
   },
+  "uploader":{
+    "title":"اضغط او اسحب لرفع الملفات",
+    "invoiceLogo":"إرفاق شعار الفاتورة"
+  },
+  "button": {
+  "save": "حفظ",
+  "back": "رجوع",
+  "cancel":"إلغاء",
+  "edit": "تعديل",
+  "editInvoice": "تعديل الفاتورة",
+  "uploadFile":"رفع الملفات",
+  "pickColor":"اختر اللون"
+  },
+  "input": {
+  "label": {
+    "invoiceName": "اسم الفاتورة"
+  },
+  "placeholder": {
+    "invoiceName": "أدخل اسم الفاتورة"
+  }
+},
   "tag":{
     "system":"تأسيس النظام"
   },

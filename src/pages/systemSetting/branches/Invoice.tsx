@@ -8,11 +8,18 @@ import SectionWithContainer from '../../../components/common/SectionWithContaine
 import Img from '../../../components/ui/Img';
 import Button from '../../../components/ui/Button';
 import useGoBack from '../../../lib/utils/GoBack';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import FormInput from '../../../components/common/FormInput';
+import ImageUploader from '../../../components/common/ImageUploader';
+import { getImageSrc } from '../../../lib/utils/ImageSrc';
+import ColorSelector from '../../../components/common/ColorSelector';
+import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 const Invoice = () => {
+  const { t } = useTranslation();
+
   const methods = InvoicePaymentMethodsData.map((method) => {
     const { id, img, price } = method;
     return <BankTypePrice key={id} img={img} price={price} />;
@@ -56,17 +63,33 @@ const Invoice = () => {
     setOpen(true);
   };
 
-  const { control, handleSubmit, watch } = useForm({
+  const {
+    control,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors }
+  } = useForm({
     mode: 'all',
     defaultValues: {
       img: '',
       name: 'فاتورة ضريبية مبسطة',
-      mainColor: '',
+      primaryColor: '#295E56',
       secondaryColor: ''
     }
   });
 
-  const { name, img } = watch();
+  const handleCancel = () => {
+    onClose();
+    reset();
+  };
+
+  const { name, img, primaryColor } = watch();
+  const imageSrc = getImageSrc(img, invoiceLogo);
+
+  useEffect(() => {
+    console.log('imageSrc', imageSrc);
+  }, [imageSrc]);
 
   const onSubmit = (data: FieldValues) => {
     console.log(data);
@@ -74,14 +97,41 @@ const Invoice = () => {
 
   return (
     <>
-      <Drawer title="تعديل الفاتورة" onClose={onClose} open={open}>
-        <form action="" onSubmit={handleSubmit(onSubmit)}>
-          <FormInput
-            control={control}
-            name="name"
-            label="اسم الفاتورة"
-            placeholder="invoice name"
-          />
+      <Drawer title={t('button.editInvoice')} onClose={onClose} open={open}>
+        <form
+          action=""
+          onSubmit={handleSubmit(onSubmit)}
+          className="h-full flex flex-col justify-between"
+        >
+          <div className="space-y-8">
+            <FormInput
+              control={control}
+              name="name"
+              label="invoiceName"
+              placeholder="invoiceName"
+            />
+            <ImageUploader
+              label="invoiceLogo"
+              name="img"
+              isOpen
+              control={control}
+              errors={errors}
+            />
+            <ColorSelector
+              name="primaryColor"
+              control={control}
+              errors={errors}
+            />
+          </div>
+          <div className="w-full flex gap-2">
+            <Button title="save" cx="!w-full flex-grow" />
+            <Button
+              type="button"
+              title="cancel"
+              onClick={handleCancel}
+              outline
+            />
+          </div>
         </form>
       </Drawer>
       <SectionWithContainer>
@@ -89,20 +139,27 @@ const Invoice = () => {
           <div className="flex items-center justify-between flex-wrap gap-4">
             <h1 className="text-xl font-bold">بيانات الفاتورة</h1>
             <div className="flex items-center gap-2">
-              <Button title="تعديل الفاتورة" onClick={onOpen} />
-              <Button title="عودة" outline onClick={goBack} />
+              <Button type="button" title="editInvoice" onClick={onOpen} />
+              <Button type="button" title="back" outline onClick={goBack} />
             </div>
           </div>
         </div>
-        <div className="bg-white pt-8 px-4 md:px-8 lg:px-10  rounded-lg space-y-6">
-          <div className="flex items-center justify-center md:justify-between flex-wrap gap-6 md:gap-4 rounded-2xl border-2 border-light px-6 md:px-8 lg:px-12 py-10">
+        <div className="bg-white pt-8   rounded-lg space-y-6">
+          <div className="flex items-center mx-4 md:mx-8 lg:mx-10 justify-center md:justify-between flex-wrap gap-6 md:gap-4 rounded-2xl border-2 border-light px-6 md:px-8 lg:px-12 py-10">
             <Img
               cx="object-contain max-md:flex-grow max-md:w-full md:max-w-[250px]"
-              src={img ? img : invoiceLogo}
+              src={imageSrc}
               alt="invoice logo"
             />
             <div className="invoice-name space-y-2 text-center">
-              <h2 className="text-primary font-bold text-2xl">{name}</h2>
+              <h2
+                style={{
+                  color: primaryColor
+                }}
+                className="text-primary font-bold text-2xl"
+              >
+                {name}
+              </h2>
               <TitleInfo
                 title="رقم الفاتورة"
                 desc="24"
@@ -116,23 +173,30 @@ const Invoice = () => {
             </div>
           </div>
           <Table
+            color={primaryColor}
+            customClass="dynamic-color mx-4 md:mx-8 lg:mx-10"
             hasContainer={false}
             cols={columns}
             hasSperateData={true}
             sperateData={data}
             noPagination
           />
-          <div className="sub-info flex items-center justify-between  flex-wrap gap-4  px-8 py-10">
+          <div className="sub-info mx-4 md:mx-8 lg:mx-10 flex items-center justify-between  flex-wrap gap-4  py-10">
             <div className="seller-name text-center max-md:w-full max-md:flex-grow ">
               <p className="text-sm">اسم البائع</p>
               <p className="font-bold text-lg">احمد هلال</p>
             </div>
-            <div className="qr-code size-28 bg-primary max-md:mx-auto" />
+            <div
+              style={{
+                background: primaryColor
+              }}
+              className="qr-code size-28 max-md:mx-auto"
+            />
             <div className="methods flex items-center justify-between flex-wrap gap-4">
               {methods}
             </div>
           </div>
-          <div className="congrats relative py-3 px-4 border-3  border-light rounded-xl">
+          <div className="congrats mx-4 md:mx-8 lg:mx-10 relative py-3 px-4 border-3  border-light rounded-xl">
             <p className="font-bold bg-light rounded-lg px-8 py-2 text-center">
               كل عام وانتم بخير
             </p>
@@ -143,7 +207,14 @@ const Invoice = () => {
             <span className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-20 h-[10px] bg-white z-20 rounded-t-full" />
           </div>
 
-          <div className="bg-primary text-white py-5 px-4 grid place-items-center w-full  ">
+          <div
+            style={{
+              background: primaryColor
+            }}
+            className={clsx(
+              ` text-white py-5 px-4 grid place-items-center w-full`
+            )}
+          >
             <div className="lg:w-[850px] lg:mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center place-content-center gap-4">
               <TitleInfo title="العنوان" desc="الرياض , السعودية" />
               <TitleInfo title="الإيميل" desc="1ahmedhelal1@gmail.com" />
