@@ -14,6 +14,8 @@
   "button": {
   "save": "حفظ",
   "back": "رجوع",
+  "confirm":"تأكيد",
+  "login":"تسجيل الدخول",
   "cancel":"إلغاء",
   "edit": "تعديل",
   "editInvoice": "تعديل الفاتورة",
@@ -22,11 +24,14 @@
   },
   "input": {
   "label": {
-    "invoiceName": "اسم الفاتورة"
+    "invoiceName": "اسم الفاتورة",
+    "email":"البريد الإلكتروني",
+    "password":"كلمة المرور"
   },
-  "placeholder": {
-    "invoiceName": "أدخل اسم الفاتورة"
-  }
+  "placeholder":"ادخل {{label}}",
+  "error":{
+      "required":"{{label}} مطلوب "
+    }
 },
   "tag":{
     "system":"تأسيس النظام"

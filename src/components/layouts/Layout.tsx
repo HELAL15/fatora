@@ -5,8 +5,8 @@ import Menu from './Menu';
 import Header from './Header';
 
 const Layout = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const [close, setClose] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
+  const [close, setClose] = useState(true);
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);

@@ -14,6 +14,8 @@
   "button":{
     "save":"save",
     "back":"back",
+    "confirm":"confirm",
+    "login":"login",
     "cancel":"cancel",
     "edit":"edit",
     "editInvoice":"edit invoice",
@@ -22,10 +24,13 @@
   },
   "input":{
     "label":{
-      "invoiceName":"invoice name"
+      "invoiceName":"invoice name",
+      "email":"email",
+      "password":"password"
     },
-    "placeholder":{
-      "invoiceName":"enter invoice name"
+    "placeholder":"enter {{label}}",
+    "error":{
+      "required":"{{label}} is required"
     }
   },
   "tag":{

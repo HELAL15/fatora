@@ -6,17 +6,21 @@ import LinkButton from '../ui/LinkButton';
 
 interface IProps {
   title?: string;
-  add?: boolean;
+  add?: string | boolean;
   view?: string;
 }
 
-const SystemCard: FC<IProps> = ({ title = '', add, view = '' }) => {
+const SystemCard: FC<IProps> = ({ title = '', add = '', view = '' }) => {
   const { t } = useTranslation();
   return (
     <div className="bg-secondary text-white py-7 px-5 rounded-lg flex items-center justify-between gap-4">
       <p className="text-sm font-semibold">{t(title)}</p>
       <div className="flex items-center gap-3">
-        {add && <Button icon={<FaPlus />} cx="text-xl !p-0 bg-transparent" />}
+        {typeof add === 'string' ? (
+          <LinkButton href={add} icon={<FaPlus />} cx="text-xl" />
+        ) : (
+          <Button icon={<FaPlus />} cx="text-xl !p-0 bg-transparent" />
+        )}
         {view && (
           <LinkButton
             href={view}

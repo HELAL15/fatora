@@ -66,7 +66,7 @@ const systemItems = [
       {
         id: 2,
         title: 'zakat',
-        add: true,
+        add: '/system/zakat-income/add',
         view: '/system/zakat-income'
       }
     ]

@@ -48,7 +48,11 @@ const ImageUploader = ({
       });
     }
   }, [isOpen, defaultValue]);
-
+  const fileList = previews.map((preview, index) => ({
+    uid: String(index),
+    name: `file-${index + 1}`,
+    url: preview
+  }));
   return (
     <div className="image-upload-form">
       <label className="upload-label font-semibold px-1">
@@ -61,15 +65,18 @@ const ImageUploader = ({
         rules={rules}
         render={({ field }) => (
           <div className="flex items-center flex-wrap gap-4 !mt-1">
-            <div className="img space-y-1 flex-grow w-full">
+            <div className="img space-y-1 flex-grow w-full ">
               <Upload
-                listType="picture-card"
-                showUploadList={false}
+                // listType="picture-card"
+                listType="picture"
+                showUploadList={true}
+                defaultFileList={fileList}
                 accept={
                   video
                     ? 'video/*'
                     : 'image/png, image/jpeg, image/jpg, image/webp'
                 }
+                maxCount={multiple ? undefined : 1}
                 multiple={multiple}
                 beforeUpload={(_, fileList) => {
                   const newFiles: File[] = [];
@@ -108,6 +115,34 @@ const ImageUploader = ({
 
                   return false;
                 }}
+                onPreview={(file) => {
+                  let src = file.url || (file.preview as string);
+                  if (!src && file.originFileObj) {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file.originFileObj);
+                    reader.onload = () => {
+                      src = reader.result as string;
+                      const image = new Image();
+                      image.src = src;
+                      const imgWindow = window.open(src);
+                      imgWindow?.document.write(image.outerHTML);
+                    };
+                  } else {
+                    const image = new Image();
+                    image.src = src;
+                    const imgWindow = window.open(src);
+                    imgWindow?.document.write(image.outerHTML);
+                  }
+                }}
+                onRemove={(file) => {
+                  const newPreviews = previews.filter(
+                    (preview) => preview !== file.url
+                  );
+                  setPreviews(newPreviews);
+                  field.onChange(
+                    editable ? [...(field.value || []), ...newPreviews] : ''
+                  );
+                }}
                 className="custom-upload !bg-transparent flex-grow "
               >
                 <div className="flex flex-col items-center gap-2">
@@ -129,19 +164,19 @@ const ImageUploader = ({
               )}
             </div>
 
-            {!video &&
+            {/* {!video &&
               previews.map((preview, index) => (
                 <div key={index} className="relative image-preview">
                   <img
                     src={preview}
                     alt="Preview"
                     draggable="false"
-                    className=" h-[80px] object-cover rounded-md"
+                    className="  size-10 object-contain rounded-md"
                   />
                   {!editable && (
                     <button
                       type="button"
-                      className="absolute cursor-pointer -top-2 -right-2 size-6 bg-red-500 text-white rounded-full"
+                      className="absolute cursor-pointer -top-2 -right-2 size-5 bg-red-500 text-white rounded-full"
                       onClick={() => {
                         const newPreviews = previews.filter(
                           (_, i) => i !== index
@@ -154,7 +189,7 @@ const ImageUploader = ({
                     </button>
                   )}
                 </div>
-              ))}
+              ))} */}
             {video &&
               previews &&
               previews.map((preview, index) => (

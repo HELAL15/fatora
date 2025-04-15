@@ -8,7 +8,7 @@ import SectionWithContainer from '../../../components/common/SectionWithContaine
 import Img from '../../../components/ui/Img';
 import Button from '../../../components/ui/Button';
 import useGoBack from '../../../lib/utils/GoBack';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import FormInput from '../../../components/common/FormInput';
 import ImageUploader from '../../../components/common/ImageUploader';
@@ -87,12 +87,9 @@ const Invoice = () => {
   const { name, img, primaryColor } = watch();
   const imageSrc = getImageSrc(img, invoiceLogo);
 
-  useEffect(() => {
-    console.log('imageSrc', imageSrc);
-  }, [imageSrc]);
-
   const onSubmit = (data: FieldValues) => {
     console.log(data);
+    // onClose();
   };
 
   return (
@@ -147,7 +144,7 @@ const Invoice = () => {
         <div className="bg-white pt-8   rounded-lg space-y-6">
           <div className="flex items-center mx-4 md:mx-8 lg:mx-10 justify-center md:justify-between flex-wrap gap-6 md:gap-4 rounded-2xl border-2 border-light px-6 md:px-8 lg:px-12 py-10">
             <Img
-              cx="object-contain max-md:flex-grow max-md:w-full md:max-w-[250px]"
+              cx="object-contain max-md:flex-grow max-h-[100px] max-md:w-full md:max-w-[250px]"
               src={imageSrc}
               alt="invoice logo"
             />
@@ -190,9 +187,9 @@ const Invoice = () => {
               style={{
                 background: primaryColor
               }}
-              className="qr-code size-28 max-md:mx-auto"
+              className="qr-code size-28 max-md:mx-auto "
             />
-            <div className="methods flex items-center justify-between flex-wrap gap-4">
+            <div className="methods flex items-center justify-center lg:justify-between flex-wrap gap-4">
               {methods}
             </div>
           </div>

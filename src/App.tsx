@@ -14,7 +14,9 @@ import {
   ZakatInvoice,
   Congratulatory,
   Invoice,
-  Decimal
+  Decimal,
+  LoginDashboard,
+  AddZakat
 } from './pages';
 import Layout from './components/layouts/Layout';
 
@@ -22,6 +24,7 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="/login" element={<LoginDashboard />} />
         <Route element={<Layout />}>
           {/* home page  */}
           <Route index element={<Home />} />
@@ -39,6 +42,7 @@ function App() {
           {/* sales settings page  */}
           <Route path="/system/tax-policy" element={<TaxPolicy />} />
           <Route path="/system/zakat-income" element={<ZakatInvoice />} />
+          <Route path="/system/zakat-income/add" element={<AddZakat />} />
           {/* invoice settings page  */}
           <Route path="/system/invoice-data" element={<Invoice />} />
           <Route path="/system/decimal-number" element={<Decimal />} />

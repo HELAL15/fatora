@@ -22,11 +22,18 @@ section {
 
 /* uploader  */
 .image-upload-form .ant-upload.ant-upload-select {
+  background-color: #f6f6f6 !important;
+  cursor: pointer !important;
   width: 100% !important;
-  height: 120px !important;
-  border-width: 2px !important;
+  min-height: 120px !important;
+  border: 2px dotted #7b7b7b17 !important;
+  border-radius: 10px !important;
+  transition: 0.3s;
+  @apply !py-5;
 }
-
+.image-upload-form .ant-upload.ant-upload-select:hover {
+  border: 2px dotted #295e56 !important;
+}
 /* drawer */
 .ant-drawer .ant-drawer-header-title {
   @apply !justify-between;
