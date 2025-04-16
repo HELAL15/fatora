@@ -16,9 +16,15 @@ import {
   Invoice,
   Decimal,
   LoginDashboard,
-  AddZakat
+  AddZakat,
+  BranchHome,
+  SellingInvoices,
+  AddSellingInvoice,
+  ReturningInvoice,
+  AddReturningInvoice
 } from './pages';
 import Layout from './components/layouts/Layout';
+import BranchLayout from './components/layouts/BranchLayout';
 
 function App() {
   return (
@@ -47,9 +53,29 @@ function App() {
           <Route path="/system/invoice-data" element={<Invoice />} />
           <Route path="/system/decimal-number" element={<Decimal />} />
           <Route path="/system/congratulatory" element={<Congratulatory />} />
-          {/* ** not found page */}
-          <Route path="*" element={<NotFound />} />
         </Route>
+        <Route element={<BranchLayout />}>
+          <Route path="/branch" element={<BranchHome />} />
+          <Route
+            path="/branch/selling-invoices"
+            element={<SellingInvoices />}
+          />
+          <Route
+            path="/branch/selling-invoices/add"
+            element={<AddSellingInvoice />}
+          />
+
+          <Route
+            path="/branch/return-invoices"
+            element={<ReturningInvoice />}
+          />
+          <Route
+            path="/branch/return-invoices/add"
+            element={<AddReturningInvoice />}
+          />
+        </Route>
+        {/* ** not found page */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

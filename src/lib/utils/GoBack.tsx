@@ -1,11 +1,12 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const useGoBack = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const goBack = () => {
-    if (window.history.length > 1) {
-      window.history.back();
+    if (location.key !== 'default') {
+      navigate(-1);
     } else {
       navigate('/');
     }

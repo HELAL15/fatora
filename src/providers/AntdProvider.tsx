@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { ConfigProvider } from 'antd';
 import arEG from 'antd/locale/ar_EG';
 import enUS from 'antd/locale/en_US';
+import { colorPrimary, colorSecondary, font } from '../lib/constant';
 
 interface IProps {
   children: ReactNode;
@@ -12,12 +13,11 @@ const AntdProvider: FC<IProps> = ({ children }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const direction = lang === 'ar' ? 'rtl' : 'ltr';
-  const font = 'Almarai';
-  const color = 'rgb(41 94 86)';
 
   const theme = {
     token: {
-      colorPrimary: color,
+      colorPrimary: colorPrimary,
+      colorSecondary: colorSecondary,
       borderRadius: 10,
       fontFamily: font
     }

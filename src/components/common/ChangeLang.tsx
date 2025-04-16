@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { TfiWorld } from 'react-icons/tfi';
 import { useLocation, useNavigate } from 'react-router';
+import Button from '../ui/Button';
 
 const ChangeLang = () => {
   const { i18n } = useTranslation();
@@ -18,13 +19,12 @@ const ChangeLang = () => {
   };
 
   return (
-    <button
+    <Button
+      cx="flex items-center gap-1 !px-2"
       onClick={changeLang}
-      className="flex  items-center text-sm justify-center gap-1 cursor-pointer bg-primary duration-300 hover:bg-secondary rounded-lg  text-white w-12 h-9 "
-    >
-      <TfiWorld className="text-base" />
-      {language === 'ar' ? 'En' : 'Ar'}
-    </button>
+      title={language === 'ar' ? 'en' : 'ar'}
+      icon={<TfiWorld className="text-base" />}
+    />
   );
 };
 

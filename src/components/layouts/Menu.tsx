@@ -5,7 +5,7 @@ import { IoClose, IoHomeOutline, IoSettingsOutline } from 'react-icons/io5';
 import type { MenuProps } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import { useTranslation } from 'react-i18next';
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 // import logo from '../../../assets/images/logo.png';
 /**
  * ==> props interface
@@ -38,7 +38,10 @@ const Menu: FC<IProps> = ({
     setClose(false);
   }, [location, isMobileOrTablet, setClose]);
 
-  const { t } = useTranslation();
+  const {
+    t,
+    i18n: { language }
+  } = useTranslation();
 
   const items: MenuItem[] = [
     {
@@ -110,9 +113,13 @@ const Menu: FC<IProps> = ({
               onClick={toggleCollapsed}
             >
               {collapsed ? (
-                <MenuUnfoldOutlined className="text-lg" />
+                <i className="text-lg ">
+                  {language === 'ar' ? <FaAngleLeft /> : <FaAngleRight />}
+                </i>
               ) : (
-                <MenuFoldOutlined className="text-lg" />
+                <i className="text-lg ">
+                  {language === 'ar' ? <FaAngleRight /> : <FaAngleLeft />}
+                </i>
               )}
             </button>
           )}

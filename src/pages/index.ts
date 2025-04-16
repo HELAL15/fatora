@@ -23,3 +23,15 @@ export { default as Invoice } from './systemSetting/branches/Invoice';
 export { default as Decimal } from './systemSetting/branches/Decimal';
 export { default as Congratulatory } from './systemSetting/branches/Congratulatory';
 // ** end systemSetting pages ==> }
+
+
+// ** branches pages ==> {
+
+export { default as BranchHome } from './branch/BranchHome';
+export { default as SellingInvoices } from './branch/selling/SellingInvoices';
+export { default as AddSellingInvoice } from './branch/selling/AddSellingInvoice';
+export { default as ReturningInvoice } from './branch/returning/ReturningInvoices';
+export { default as AddReturningInvoice } from './branch/returning/AddReturningInvoice';
+
+
+// ** end branches pages ==> }

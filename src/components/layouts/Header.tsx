@@ -8,6 +8,9 @@ import ChangeLang from '../common/ChangeLang';
 // import AdminDropdown from '../ui/AdminDropdown';
 // import { useTranslation } from 'react-i18next';
 import { Avatar } from 'antd';
+import Button from '../ui/Button';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 
 /**
  * ==> props interface
@@ -25,7 +28,8 @@ interface IProps {
 const Header: FC<IProps> = ({ collapsed, toggleClose }) => {
   const isMobileOrTablet = useMediaQuery({ query: '(max-width: 991px)' });
 
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -69,9 +73,7 @@ const Header: FC<IProps> = ({ collapsed, toggleClose }) => {
             <div className="flex items-center gap-2 md:gap-3">
               {/* lang changer comp  */}
               <ChangeLang />
-              <button className="rounded-lg max-md:text-sm text-white bg-primary px-4 md:px-8 py-2 cursor-pointer">
-                تسجيل الخروح
-              </button>
+              <Button title={t('logout')} onClick={() => navigate('/login')} />
             </div>
           </div>
         </div>

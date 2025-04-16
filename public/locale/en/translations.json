@@ -7,14 +7,22 @@
   "table":{
     "id":"id"
   },
+  "heading":{
+    "zakat":"zakat and income",
+    "invoiceData":"invoice data"
+  },
   "uploader":{
     "title":"Click or drag to upload files",
     "invoiceLogo":"Attach the invoice logo"
   },
   "button":{
+    "en":"en",
+    "ar":"ar",
     "save":"save",
     "back":"back",
     "confirm":"confirm",
+    "disable":"disable",
+    "logout":"logout",
     "login":"login",
     "cancel":"cancel",
     "edit":"edit",
@@ -22,11 +30,21 @@
     "uploadFile":"upload files",
     "pickColor":"pick color"
   },
+  "hint":"show an example",
   "input":{
     "label":{
       "invoiceName":"invoice name",
       "email":"email",
-      "password":"password"
+      "password":"password",
+      "temporaryPassword":"temporary password",
+      "commonName":"common name",
+      "organizerUnit":"Organizational Unit Name",
+      "organizingName":"Organizational name",
+      "tax":"tax number",
+      "registeredAddress":"registered Address",
+      "supplyActivities":"supply Activities",
+      "serialNumber":"serial Number",
+      "registrationNumber":"registration Number"
     },
     "placeholder":"enter {{label}}",
     "error":{

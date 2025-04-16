@@ -17,7 +17,7 @@ const Aside: FC<IProps> = ({ collapsed, close, children }) => {
     ${
       close ? 'inset-x-0' : 'inset-x-[-100%]'
     } lg:inset-x-0 shadow-shadow h-dvh z-50 bg-body-secondary duration-300 w-[95%] md:w-[40%] 
-    ${collapsed ? 'lg:w-[100px] ' : 'lg:w-[18%]'} 
+    ${collapsed ? 'lg:w-[90px] ' : 'lg:w-[20%]'} 
     flex-shrink-0`}
     >
       {children}

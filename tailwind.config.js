@@ -32,7 +32,7 @@ module.exports = {
           secondary: "#FFFFFF",
         },
         primary: {
-          DEFAULT: "#295E56",
+          DEFAULT: "#247DBD",
           hover: "#141414",
           white: "#FFFFFF",
         },
@@ -42,7 +42,7 @@ module.exports = {
         },
 
         secondary:{
-          DEFAULT:'rgb(219 128 40)',
+          DEFAULT:'#0FAC6D',
         },
 
         userIo:{

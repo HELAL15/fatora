@@ -6,7 +6,7 @@ const NotFound = () => {
   const goBack = useGoBack();
 
   return (
-    <div className="h-[89dvh] flex items-center justify-center p-4">
+    <div className="h-dvh flex items-center justify-center p-4">
       <div className="max-w-2xl w-full">
         <div className="text-center">
           <div className="bg-primary inline-block p-6 rounded-full mb-8">

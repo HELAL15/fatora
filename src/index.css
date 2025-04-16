@@ -3,7 +3,8 @@
 @config '../tailwind.config.js';
 
 :root {
-  --primary: #295e56;
+  --primary: #247dbd;
+  --primaryColor: #247dbd;
 }
 
 * {
@@ -32,7 +33,7 @@ section {
   @apply !py-5;
 }
 .image-upload-form .ant-upload.ant-upload-select:hover {
-  border: 2px dotted #295e56 !important;
+  border: 2px dotted var(--primaryColor) !important;
 }
 /* drawer */
 .ant-drawer .ant-drawer-header-title {

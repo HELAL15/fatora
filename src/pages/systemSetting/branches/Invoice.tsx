@@ -16,6 +16,8 @@ import { getImageSrc } from '../../../lib/utils/ImageSrc';
 import ColorSelector from '../../../components/common/ColorSelector';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
+import Heading from '../../../components/common/Heading';
+import { colorPrimary } from '../../../lib/constant';
 
 const Invoice = () => {
   const { t } = useTranslation();
@@ -74,7 +76,7 @@ const Invoice = () => {
     defaultValues: {
       img: '',
       name: 'فاتورة ضريبية مبسطة',
-      primaryColor: '#295E56',
+      primaryColor: colorPrimary,
       secondaryColor: ''
     }
   });
@@ -131,16 +133,18 @@ const Invoice = () => {
           </div>
         </form>
       </Drawer>
-      <SectionWithContainer>
-        <div className="contain-fluid mb-8 ">
-          <div className="flex items-center justify-between flex-wrap gap-4">
-            <h1 className="text-xl font-bold">بيانات الفاتورة</h1>
+      <Heading
+        title="invoiceData"
+        body={
+          <>
             <div className="flex items-center gap-2">
               <Button type="button" title="editInvoice" onClick={onOpen} />
               <Button type="button" title="back" outline onClick={goBack} />
             </div>
-          </div>
-        </div>
+          </>
+        }
+      />
+      <SectionWithContainer>
         <div className="bg-white pt-8   rounded-lg space-y-6">
           <div className="flex items-center mx-4 md:mx-8 lg:mx-10 justify-center md:justify-between flex-wrap gap-6 md:gap-4 rounded-2xl border-2 border-light px-6 md:px-8 lg:px-12 py-10">
             <Img

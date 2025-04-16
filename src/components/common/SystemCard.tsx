@@ -18,6 +18,8 @@ const SystemCard: FC<IProps> = ({ title = '', add = '', view = '' }) => {
       <div className="flex items-center gap-3">
         {typeof add === 'string' ? (
           <LinkButton href={add} icon={<FaPlus />} cx="text-xl" />
+        ) : add == false ? (
+          ''
         ) : (
           <Button icon={<FaPlus />} cx="text-xl !p-0 bg-transparent" />
         )}

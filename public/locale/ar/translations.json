@@ -7,14 +7,22 @@
   "table":{
     "id":"التسلسل"
   },
+  "heading":{
+    "zakat":"الزكاة والدخل",
+    "invoiceData":"بيانات الفاتورة"
+  },
   "uploader":{
     "title":"اضغط او اسحب لرفع الملفات",
     "invoiceLogo":"إرفاق شعار الفاتورة"
   },
   "button": {
+    "en":"en",
+    "ar":"ar",
   "save": "حفظ",
   "back": "رجوع",
   "confirm":"تأكيد",
+  "disable":"تعطيل",
+  "logout":"تسجيل خروج",
   "login":"تسجيل الدخول",
   "cancel":"إلغاء",
   "edit": "تعديل",
@@ -22,11 +30,21 @@
   "uploadFile":"رفع الملفات",
   "pickColor":"اختر اللون"
   },
+  "hint":"عرض مثال توضيحي",
   "input": {
   "label": {
     "invoiceName": "اسم الفاتورة",
     "email":"البريد الإلكتروني",
-    "password":"كلمة المرور"
+    "password":"كلمة المرور",
+    "temporaryPassword":"الرقم السري المؤقت",
+    "commonName":"الأسم الشائع",
+    "organizerUnit":"اسم الوحدة التنظيمية",
+    "organizingName":"الاسم التنظيمي",
+    "tax":"الرقم الضريبي",
+    "registeredAddress":"الرقم المسجل",
+    "supplyActivities":"فئة الأعمال",
+    "serialNumber":"الرقم التسلسلي",
+    "registrationNumber":"رقم التسجيل"
   },
   "placeholder":"ادخل {{label}}",
   "error":{
