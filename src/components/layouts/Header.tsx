@@ -10,7 +10,8 @@ import ChangeLang from '../common/ChangeLang';
 import { Avatar } from 'antd';
 import Button from '../ui/Button';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
+import { FaArrowLeft } from 'react-icons/fa';
 
 /**
  * ==> props interface
@@ -30,14 +31,17 @@ const Header: FC<IProps> = ({ collapsed, toggleClose }) => {
 
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const isPathnameStartWithBranch = pathname.startsWith('/branch');
 
   return (
     <>
-      <header className=" sticky flex items-center justify-center top-0 h-[77px] z-20 bg-white py-2 border-b border-b-slate-200">
+      <header className=" sticky flex items-center justify-center max-lg:rounded-ee-4xl max-lg:rounded-es-4xl top-0 h-[77px] z-20 bg-white py-2 border-b border-b-slate-200">
         <div className="container-fluid  ">
           <div className="flex items-center justify-between flex-wrap py-4 gap-4 ">
-            <div className="flex items-center gap-3 md:gap-4 ">
-              {isMobileOrTablet ? (
+            <div className="flex items-center gap-2 md:gap-4 ">
+              {!isPathnameStartWithBranch && isMobileOrTablet ? (
                 <button
                   className="grid place-items-center cursor-pointer"
                   onClick={toggleClose}
@@ -52,28 +56,24 @@ const Header: FC<IProps> = ({ collapsed, toggleClose }) => {
                 ''
               )}
 
-              <div className="max-md:hidden flex items-center gap-2 bg-light rounded-lg px-4 py-1">
-                <h3 className=" text-sm font-medium">
-                  {/* {' '}
-                  {headerTitle ? (
-                    `${headerTitle} 👋🏼`
-                  ) : (
-                    <Skeleton.Input active={true} />
-                  )}{' '} */}
-                  username
-                </h3>
-                <Avatar />
-                {/* <p className="opacity-50">{t('summary')}</p> */}
+              <div className=" flex items-center gap-1 md:gap-2 bg-light text-primary rounded-lg px-2 md:px-4 py-1">
+                <h3 className="text-xs md:text-sm font-medium">username</h3>
+                <Avatar size={isMobileOrTablet ? 25 : undefined} />
               </div>
-              <div className="max-md:hidden flex items-center gap-2 ">
-                <h3 className=" text-lg font-medium">الفرع :</h3>
+              <div className=" max-md:hidden flex items-center gap-1 md:gap-2 ">
+                <h3 className="text-sm md:text-lg font-medium">الفرع :</h3>
                 <span>إدارة</span>
               </div>
             </div>
-            <div className="flex items-center gap-2 md:gap-3">
+            <div className="flex items-stretch gap-2 md:gap-3">
               {/* lang changer comp  */}
               <ChangeLang />
-              <Button title={t('logout')} onClick={() => navigate('/login')} />
+              <Button
+                outline
+                title={isMobileOrTablet ? '' : t('logout')}
+                icon={isMobileOrTablet ? <FaArrowLeft /> : ''}
+                onClick={() => navigate('/login')}
+              />
             </div>
           </div>
         </div>

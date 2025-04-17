@@ -1,5 +1,8 @@
 {
   "fatora":"فاتورة",
+  "loginDashboard":{
+    "desc":"تسجيل الدخول إلى النظام"
+  },
   "aside":{
     "home":"الصفحة الرئيسية",
     "system":"إعدادات النظام"
@@ -15,6 +18,8 @@
     "title":"اضغط او اسحب لرفع الملفات",
     "invoiceLogo":"إرفاق شعار الفاتورة"
   },
+  "add":"إضافة",
+  "view":"عرض",
   "button": {
     "en":"en",
     "ar":"ar",
@@ -46,6 +51,9 @@
     "serialNumber":"الرقم التسلسلي",
     "registrationNumber":"رقم التسجيل"
   },
+  "validation":{
+      "required":"هذا الحقل مطلوب"
+    },
   "placeholder":"ادخل {{label}}",
   "error":{
       "required":"{{label}} مطلوب "

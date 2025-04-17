@@ -3,6 +3,7 @@ import { FaPlus, MdOutlineRemoveRedEye } from '../icons';
 import Button from '../ui/Button';
 import { FC } from 'react';
 import LinkButton from '../ui/LinkButton';
+import { Tooltip } from 'antd';
 
 interface IProps {
   title?: string;
@@ -17,16 +18,35 @@ const SystemCard: FC<IProps> = ({ title = '', add = '', view = '' }) => {
       <p className="text-sm font-semibold">{t(title)}</p>
       <div className="flex items-center gap-3">
         {typeof add === 'string' ? (
-          <LinkButton href={add} icon={<FaPlus />} cx="text-xl" />
+          <LinkButton
+            href={add}
+            icon={
+              <Tooltip title={t('add')}>
+                <FaPlus />
+              </Tooltip>
+            }
+            cx="text-xl"
+          />
         ) : add == false ? (
           ''
         ) : (
-          <Button icon={<FaPlus />} cx="text-xl !p-0 bg-transparent" />
+          <Button
+            icon={
+              <Tooltip title={t('add')}>
+                <FaPlus />
+              </Tooltip>
+            }
+            cx="text-xl !p-0 bg-transparent"
+          />
         )}
         {view && (
           <LinkButton
             href={view}
-            icon={<MdOutlineRemoveRedEye />}
+            icon={
+              <Tooltip title={t('view')}>
+                <MdOutlineRemoveRedEye />
+              </Tooltip>
+            }
             cx="text-2xl"
           />
         )}

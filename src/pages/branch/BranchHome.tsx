@@ -15,9 +15,9 @@ const BranchHome = () => {
         style={{
           backgroundImage: `url(${branchBg})`
         }}
-        className=" h-screen max-md:pb-6 bg-cover bg-center"
+        className=" min-h-screen max-md:pb-6 bg-cover bg-center"
       >
-        <header className=" md:px-6  text-white sticky top-0 max-md:mb-6">
+        <header className=" md:px-6  text-white sticky  max-md:mb-6">
           <div className="container-fluid">
             <div className="flex items-center justify-between gap-4 w-full">
               <div className="logo bg-primary px-4 py-8 rounded-ee-2xl rounded-es-2xl ">

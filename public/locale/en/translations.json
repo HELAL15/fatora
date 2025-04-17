@@ -1,5 +1,8 @@
 {
   "fatora":"fatora",
+  "loginDashboard":{
+    "desc":"login to system"
+  },
   "aside": {
     "home":"home",
     "system":"system setting"
@@ -15,6 +18,8 @@
     "title":"Click or drag to upload files",
     "invoiceLogo":"Attach the invoice logo"
   },
+  "add":"add",
+  "view":"view",
   "button":{
     "en":"en",
     "ar":"ar",
@@ -47,6 +52,9 @@
       "registrationNumber":"registration Number"
     },
     "placeholder":"enter {{label}}",
+    "validation":{
+      "required":"this field is required"
+    },
     "error":{
       "required":"{{label}} is required"
     }

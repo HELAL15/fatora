@@ -81,16 +81,16 @@ function FormInput<T extends FieldValues>({
             </div>
             {(hint || error) && (
               <div className="flex flex-col gap-2">
-                {error && (
-                  <span className="text-red-500 text-xs">{errorMessage}</span>
-                )}
                 {hint && (
                   <Tooltip title={hint}>
-                    <span className="text-gray-400/70 w-fit px-2 flex items-center gap-1 text-xs cursor-pointer">
+                    <span className="text-gray-400/70 w-fit px-1 flex items-center gap-1 text-xs cursor-pointer">
                       <FaRegQuestionCircle className="text-sm" />
                       {t(`hint`)}
                     </span>
                   </Tooltip>
+                )}
+                {error && (
+                  <span className="text-red-500 text-xs">{errorMessage}</span>
                 )}
               </div>
             )}

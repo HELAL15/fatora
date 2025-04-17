@@ -3,10 +3,12 @@ import { Outlet, useLocation } from 'react-router';
 import Aside from './Aside';
 import Menu from './Menu';
 import Header from './Header';
+import { useMediaQuery } from 'react-responsive';
 
 const Layout = () => {
-  const [collapsed, setCollapsed] = useState(true);
-  const [close, setClose] = useState(true);
+  const isMobileOrTablet = useMediaQuery({ query: '(max-width: 991px)' });
+  const [collapsed, setCollapsed] = useState(isMobileOrTablet ? false : true);
+  const [close, setClose] = useState(isMobileOrTablet ? false : true);
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
