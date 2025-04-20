@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { message, Spin } from 'antd';
-import logo from '../assets/logo-invoice.png';
+import logo from '../assets/logo.png';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import Cookies from 'js-cookie';

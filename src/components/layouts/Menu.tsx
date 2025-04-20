@@ -6,7 +6,7 @@ import type { MenuProps } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import { useTranslation } from 'react-i18next';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-// import logo from '../../../assets/images/logo.png';
+import logo from '../../assets/logo.png';
 /**
  * ==> props interface
  */
@@ -86,21 +86,21 @@ const Menu: FC<IProps> = ({
   return (
     <>
       <div className="logo  h-[73px] relative font-bold text-2xl py-4 px-3 mt-1 border-b border-b-slate-200 flex items-center justify-between">
-        {/* <img
+        <img
           draggable={false}
           src={logo}
           alt="jawraa logo"
           className={`mx-auto ${
             collapsed ? 'w-full' : 'w-[180px]'
           }  h-[45px] object-contain`}
-        /> */}
-        <h2
+        />
+        {/* <h2
           className={` text-start lg:text-center text-primary font-bold duration-300 w-full ${
             collapsed ? 'text-lg' : 'text-4xl'
           }`}
         >
           {t('fatora')}
-        </h2>
+        </h2> */}
         <button onClick={toggleClose} className="block lg:hidden">
           <IoClose />
         </button>
