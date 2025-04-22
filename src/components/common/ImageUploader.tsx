@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Control, Controller, FieldErrors, FieldValues } from 'react-hook-form';
-import { Upload } from 'antd';
+import { Upload, Image, Modal } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { FiUploadCloud } from 'react-icons/fi';
@@ -34,8 +34,11 @@ const ImageUploader = ({
   const [previews, setPreviews] = useState<string[]>(
     Array.isArray(defaultValue) ? defaultValue : [defaultValue]
   );
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const [currentPreview, setCurrentPreview] = useState<string | null>(null);
 
   const { t } = useTranslation();
+
   useEffect(() => {
     if (!isOpen) {
       setPreviews((prev) => {
@@ -48,15 +51,32 @@ const ImageUploader = ({
       });
     }
   }, [isOpen, defaultValue]);
+
   const fileList = previews.map((preview, index) => ({
     uid: String(index),
     name: `file-${index + 1}`,
     url: preview
   }));
+
+  const handlePreview = (file: FieldValues) => {
+    let src = file.url || (file.preview as string);
+    if (!src && file.originFileObj) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file.originFileObj);
+      reader.onload = () => {
+        src = reader.result as string;
+        setCurrentPreview(src);
+        setPreviewVisible(true);
+      };
+    } else {
+      setCurrentPreview(src);
+      setPreviewVisible(true);
+    }
+  };
+
   return (
     <div className="image-upload-form">
       <label className="upload-label font-semibold px-1">
-        {' '}
         {t(`uploader.${label}`)}
       </label>
       <Controller
@@ -65,9 +85,8 @@ const ImageUploader = ({
         rules={rules}
         render={({ field }) => (
           <div className="flex items-center flex-wrap gap-4 !mt-1">
-            <div className="img space-y-1 flex-grow w-full ">
+            <div className="img space-y-1 flex-grow w-full">
               <Upload
-                // listType="picture-card"
                 listType="picture"
                 showUploadList={true}
                 defaultFileList={fileList}
@@ -95,7 +114,6 @@ const ImageUploader = ({
                       const reader = new FileReader();
                       reader.onload = () => {
                         newPreviews.push(reader.result as string);
-
                         setPreviews((prev) =>
                           editable
                             ? [...new Set([...newPreviews])]
@@ -115,25 +133,7 @@ const ImageUploader = ({
 
                   return false;
                 }}
-                onPreview={(file) => {
-                  let src = file.url || (file.preview as string);
-                  if (!src && file.originFileObj) {
-                    const reader = new FileReader();
-                    reader.readAsDataURL(file.originFileObj);
-                    reader.onload = () => {
-                      src = reader.result as string;
-                      const image = new Image();
-                      image.src = src;
-                      const imgWindow = window.open(src);
-                      imgWindow?.document.write(image.outerHTML);
-                    };
-                  } else {
-                    const image = new Image();
-                    image.src = src;
-                    const imgWindow = window.open(src);
-                    imgWindow?.document.write(image.outerHTML);
-                  }
-                }}
+                onPreview={handlePreview}
                 onRemove={(file) => {
                   const newPreviews = previews.filter(
                     (preview) => preview !== file.url
@@ -143,7 +143,7 @@ const ImageUploader = ({
                     editable ? [...(field.value || []), ...newPreviews] : ''
                   );
                 }}
-                className="custom-upload !bg-transparent flex-grow "
+                className="custom-upload !bg-transparent flex-grow"
               >
                 <div className="flex flex-col items-center gap-2">
                   <FiUploadCloud className="block text-2xl" />
@@ -164,32 +164,48 @@ const ImageUploader = ({
               )}
             </div>
 
-            {/* {!video &&
-              previews.map((preview, index) => (
-                <div key={index} className="relative image-preview">
-                  <img
-                    src={preview}
-                    alt="Preview"
-                    draggable="false"
-                    className="  size-10 object-contain rounded-md"
-                  />
-                  {!editable && (
-                    <button
-                      type="button"
-                      className="absolute cursor-pointer -top-2 -right-2 size-5 bg-red-500 text-white rounded-full"
-                      onClick={() => {
-                        const newPreviews = previews.filter(
-                          (_, i) => i !== index
-                        );
-                        setPreviews(newPreviews);
-                        field.onChange(multiple ? newPreviews : null);
-                      }}
-                    >
-                      <CloseOutlined />
-                    </button>
-                  )}
-                </div>
-              ))} */}
+            {/* Preview Modal for Images and Videos */}
+            {video && currentPreview ? (
+              <Modal
+                open={previewVisible}
+                footer={null}
+                onCancel={() => setPreviewVisible(false)}
+                width={800}
+              >
+                <video
+                  src={currentPreview}
+                  controls
+                  className="w-full h-auto"
+                  autoPlay
+                />
+              </Modal>
+            ) : (
+              <Image
+                wrapperStyle={{ display: 'none' }}
+                preview={{
+                  visible: previewVisible,
+                  onVisibleChange: (visible) => setPreviewVisible(visible),
+                  afterOpenChange: (visible) =>
+                    !visible && setCurrentPreview('')
+                }}
+                src={currentPreview || ''}
+              />
+
+              // <Modal
+              //   open={previewVisible}
+              //   footer={null}
+              //   onCancel={() => setPreviewVisible(false)}
+              //   width={800}
+              // >
+              //   <Image
+              //     src={currentPreview || ''}
+              //     alt="Preview"
+              //     preview={false}
+              //     style={{ width: '100%' }}
+              //   />
+              // </Modal>
+            )}
+
             {video &&
               previews &&
               previews.map((preview, index) => (
@@ -199,7 +215,7 @@ const ImageUploader = ({
                     muted
                     controls
                     className="w-[160px] h-[80px] object-cover rounded-rounded"
-                  ></video>
+                  />
                   {!editable && (
                     <button
                       type="button"

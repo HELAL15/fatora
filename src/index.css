@@ -21,6 +21,18 @@ section {
   @apply my-10;
 }
 
+/* modal  */
+.dashboard-modal .ant-modal-content {
+  @apply !p-0;
+}
+
+.dashboard-modal .ant-modal-header {
+  @apply !bg-primary !p-4;
+}
+.dashboard-modal .ant-modal-body {
+  @apply !p-4;
+}
+
 /* uploader  */
 .image-upload-form .ant-upload.ant-upload-select {
   background-color: #f6f6f6 !important;

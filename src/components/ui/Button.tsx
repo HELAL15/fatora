@@ -9,12 +9,14 @@ const Button: FC<ButtonProps> = ({
   icon,
   onClick,
   outline,
-  type = 'submit'
+  type = 'submit',
+  disabled
 }) => {
   const { t } = useTranslation();
   return (
     <>
       <button
+        disabled={disabled}
         type={type}
         onClick={onClick}
         className={clsx(

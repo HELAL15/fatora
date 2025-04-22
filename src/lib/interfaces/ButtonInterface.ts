@@ -8,6 +8,7 @@ interface ButtonProps {
   onClick?:()=>void;
   outline?:boolean;
   type?:"submit" | "reset" | "button" | undefined;
+  disabled?:boolean
 }
 
 export default ButtonProps;

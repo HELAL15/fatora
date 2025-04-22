@@ -1,3 +1,5 @@
+import AddBank from '../../components/common/banks/bankTypes/AddBank';
+
 const systemItems = [
   {
     id: 1,
@@ -12,13 +14,13 @@ const systemItems = [
       {
         id: 2,
         title: 'employees',
-        add: true,
+        add: '',
         view: '/system/employees'
       },
       {
         id: 3,
         title: 'branches',
-        add: true,
+        add: '',
         view: '/system/branches'
       }
     ]
@@ -30,25 +32,25 @@ const systemItems = [
       {
         id: 1,
         title: 'banks',
-        add: true,
+        add: <AddBank />,
         view: '/system/banks'
       },
       {
         id: 2,
         title: 'accounts',
-        add: true,
+        add: '',
         view: '/system/bank-accounts'
       },
       {
         id: 3,
         title: 'types',
-        add: true,
+        add: '',
         view: '/system/bank-card-types'
       },
       {
         id: 4,
         title: 'cards',
-        add: true,
+        add: '',
         view: '/system/bank-cards'
       }
     ]

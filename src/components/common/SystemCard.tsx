@@ -1,13 +1,20 @@
 import { useTranslation } from 'react-i18next';
 import { FaPlus, MdOutlineRemoveRedEye } from '../icons';
 import Button from '../ui/Button';
-import { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import LinkButton from '../ui/LinkButton';
 import { Tooltip } from 'antd';
+import DashboardModal from '../ui/DashboardModal';
 
 interface IProps {
   title?: string;
-  add?: string | boolean;
+  add?:
+    | string
+    | boolean
+    | ReactNode
+    | undefined
+    | React.ReactElement<{ close: () => void }>
+    | unknown;
   view?: string;
 }
 
@@ -27,6 +34,17 @@ const SystemCard: FC<IProps> = ({ title = '', add = '', view = '' }) => {
             }
             cx="text-xl"
           />
+        ) : React.isValidElement(add) ? (
+          <DashboardModal
+            responsive
+            icon={
+              <Tooltip title={t('add')}>
+                <FaPlus />
+              </Tooltip>
+            }
+          >
+            {add as React.ReactElement<{ close: () => void }>}
+          </DashboardModal>
         ) : add == false ? (
           ''
         ) : (

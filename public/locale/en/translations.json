@@ -37,6 +37,10 @@
   },
   "hint":"show an example",
   "input":{
+    "lang":{
+      "ar":"(arabic)",
+      "en":"(english)"
+    },
     "label":{
       "invoiceName":"invoice name",
       "email":"email",

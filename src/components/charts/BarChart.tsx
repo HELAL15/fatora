@@ -4,11 +4,24 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
+  PointElement,
+  LineElement,
+  RadialLinearScale,
   Tooltip,
   Legend
 } from 'chart.js';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  PointElement,
+  LinearScale,
+  BarElement,
+  RadialLinearScale,
+  LineElement,
+
+  Tooltip,
+  Legend
+);
 
 const barData = {
   labels: ['Jan', 'Feb', 'Mar', 'Apr'],
@@ -22,5 +35,9 @@ const barData = {
 };
 
 export default function BarChart() {
-  return <Bar data={barData} />;
+  return (
+    <>
+      <Bar data={barData} />
+    </>
+  );
 }

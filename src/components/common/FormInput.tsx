@@ -19,6 +19,7 @@ interface CustomInputProps<T extends FieldValues> {
   errors?: FieldValues;
   label?: string;
   hint?: string;
+  lang?: string;
 }
 const { Password } = Input;
 function FormInput<T extends FieldValues>({
@@ -29,7 +30,8 @@ function FormInput<T extends FieldValues>({
   type = 'text',
   errors,
   label = '',
-  hint = ''
+  hint = '',
+  lang = ''
 }: CustomInputProps<T>) {
   const { t } = useTranslation();
   const error = errors?.[name] as FieldError | undefined;
@@ -44,7 +46,8 @@ function FormInput<T extends FieldValues>({
           <div className="space-y-1">
             <div className="form-input">
               <label htmlFor={name} className="font-semibold text-sm px-1">
-                {t(`input.label.${label}`)}
+                {t(`input.label.${label}`)}{' '}
+                {lang ? t(`input.lang.${lang}`) : ''}
               </label>
               {type === 'password' ? (
                 <Password
@@ -55,7 +58,7 @@ function FormInput<T extends FieldValues>({
                   })}
                   value={field.value || ''}
                   className={clsx(
-                    `!shadow-none !mt-1 !bg-light !outline-none disabled:bg-[rgba(0_0_0_0.04)] disabled:text-primary disabled:cursor-not-allowed  w-full px-4 !py-3 text-base rounded-rounded border !border-transparent  duration-300 disabled:hover:border-slate-200 hover:border-primary disabled:focus:border-slate-200 focus:!border-primary ${
+                    `!shadow-none !mt-1 !bg-light !outline-none disabled:bg-[rgba(0_0_0_0.04)] disabled:text-primary disabled:cursor-not-allowed  w-full px-4 !py-3 text-base rounded-rounded border !border-transparent  duration-300 disabled:hover:border-slate-200 hover:!border-primary disabled:focus:border-slate-200 focus:!border-primary ${
                       errorMessage ? 'border-red-500' : ''
                     }`
                   )}
@@ -70,7 +73,7 @@ function FormInput<T extends FieldValues>({
                   })}
                   value={field.value || ''}
                   className={clsx(
-                    `!shadow-none !mt-1 !bg-light !outline-none disabled:bg-[rgba(0_0_0_0.04)] disabled:text-primary disabled:cursor-not-allowed  w-full px-4 !py-3 text-base rounded-rounded border !border-transparent  duration-300 disabled:hover:border-slate-200 hover:border-primary disabled:focus:border-slate-200 focus:!border-primary ${
+                    `!shadow-none !mt-1 !bg-light !outline-none disabled:bg-[rgba(0_0_0_0.04)] disabled:text-primary disabled:cursor-not-allowed  w-full px-4 !py-3 text-base rounded-rounded border !border-transparent  duration-300 disabled:hover:border-slate-200 hover:!border-primary disabled:focus:border-slate-200 focus:!border-primary ${
                       errorMessage
                         ? '!border-red-500 focus:!border-red-500'
                         : ''
