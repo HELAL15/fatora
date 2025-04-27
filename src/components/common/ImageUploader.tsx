@@ -186,24 +186,10 @@ const ImageUploader = ({
                   visible: previewVisible,
                   onVisibleChange: (visible) => setPreviewVisible(visible),
                   afterOpenChange: (visible) =>
-                    !visible && setCurrentPreview('')
+                    !visible && setCurrentPreview(null)
                 }}
-                src={currentPreview || ''}
+                src={currentPreview as string}
               />
-
-              // <Modal
-              //   open={previewVisible}
-              //   footer={null}
-              //   onCancel={() => setPreviewVisible(false)}
-              //   width={800}
-              // >
-              //   <Image
-              //     src={currentPreview || ''}
-              //     alt="Preview"
-              //     preview={false}
-              //     style={{ width: '100%' }}
-              //   />
-              // </Modal>
             )}
 
             {video &&

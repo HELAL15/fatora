@@ -35,44 +35,33 @@ function App() {
           {/* home page  */}
           <Route index element={<Home />} />
           {/* system settings  */}
-          <Route path="/system" element={<SystemSettings />} />
-          {/* company structure pages  */}
-          <Route path="/system/company-profile" element={<CompanyProfile />} />
-          <Route path="/system/employees" element={<Employees />} />
-          <Route path="/system/branches" element={<Branches />} />
-          {/* bank settings pages  */}
-          <Route path="/system/banks" element={<Banks />} />
-          <Route path="/system/bank-accounts" element={<BankAccounts />} />
-          <Route path="/system/bank-card-types" element={<BankCardTypes />} />
-          <Route path="/system/bank-cards" element={<BankCards />} />
-          {/* sales settings page  */}
-          <Route path="/system/tax-policy" element={<TaxPolicy />} />
-          <Route path="/system/zakat-income" element={<ZakatInvoice />} />
-          <Route path="/system/zakat-income/add" element={<AddZakat />} />
-          {/* invoice settings page  */}
-          <Route path="/system/invoice-data" element={<Invoice />} />
-          <Route path="/system/decimal-number" element={<Decimal />} />
-          <Route path="/system/congratulatory" element={<Congratulatory />} />
+          <Route path="/system">
+            <Route index element={<SystemSettings />} />
+            {/* company structure pages  */}
+            <Route path="company-profile" element={<CompanyProfile />} />
+            <Route path="employees" element={<Employees />} />
+            <Route path="branches" element={<Branches />} />
+            {/* bank settings pages  */}
+            <Route path="banks" element={<Banks />} />
+            <Route path="bank-accounts" element={<BankAccounts />} />
+            <Route path="bank-card-types" element={<BankCardTypes />} />
+            <Route path="bank-cards" element={<BankCards />} />
+            {/* sales settings page  */}
+            <Route path="tax-policy" element={<TaxPolicy />} />
+            <Route path="zakat-income" element={<ZakatInvoice />} />
+            <Route path="zakat-income/add" element={<AddZakat />} />
+            {/* invoice settings page  */}
+            <Route path="invoice-data" element={<Invoice />} />
+            <Route path="decimal-number" element={<Decimal />} />
+            <Route path="congratulatory" element={<Congratulatory />} />
+          </Route>
         </Route>
-        <Route element={<BranchLayout />}>
-          <Route path="/branch" element={<BranchHome />} />
-          <Route
-            path="/branch/selling-invoices"
-            element={<SellingInvoices />}
-          />
-          <Route
-            path="/branch/selling-invoices/add"
-            element={<AddSellingInvoice />}
-          />
-
-          <Route
-            path="/branch/return-invoices"
-            element={<ReturningInvoice />}
-          />
-          <Route
-            path="/branch/return-invoices/add"
-            element={<AddReturningInvoice />}
-          />
+        <Route path="/branch" element={<BranchLayout />}>
+          <Route index element={<BranchHome />} />
+          <Route path="selling-invoices" element={<SellingInvoices />} />
+          <Route path="selling-invoices/add" element={<AddSellingInvoice />} />
+          <Route path="return-invoices" element={<ReturningInvoice />} />
+          <Route path="return-invoices/add" element={<AddReturningInvoice />} />
         </Route>
         {/* ** not found page */}
         <Route path="*" element={<NotFound />} />

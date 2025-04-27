@@ -20,7 +20,7 @@ const Button: FC<ButtonProps> = ({
         type={type}
         onClick={onClick}
         className={clsx(
-          ` cursor-pointer capitalize rounded-rounded duration-300 px-4 md:px-6 py-2 active:scale-90 border ${
+          ` cursor-pointer capitalize rounded-rounded duration-300 px-4 md:px-6 py-2  border ${
             outline
               ? 'bg-transparent border-primary  hover:bg-primary text-primary hover:text-white'
               : 'bg-primary  border-transparent  hover:bg-secondary text-white'

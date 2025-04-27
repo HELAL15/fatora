@@ -37,6 +37,8 @@ const SystemCard: FC<IProps> = ({ title = '', add = '', view = '' }) => {
         ) : React.isValidElement(add) ? (
           <DashboardModal
             responsive
+            title="add"
+            modalTitle={title}
             icon={
               <Tooltip title={t('add')}>
                 <FaPlus />

@@ -1,4 +1,6 @@
+import AddBankAccount from '../../components/common/banks/accounts/AddBankAccount';
 import AddBank from '../../components/common/banks/bankTypes/AddBank';
+import AddCardType from '../../components/common/banks/cardTypes/AddCardType';
 
 const systemItems = [
   {
@@ -38,19 +40,19 @@ const systemItems = [
       {
         id: 2,
         title: 'accounts',
-        add: '',
+        add: <AddBankAccount />,
         view: '/system/bank-accounts'
       },
       {
         id: 3,
         title: 'types',
-        add: '',
+        add: <AddCardType />,
         view: '/system/bank-card-types'
       },
       {
         id: 4,
         title: 'cards',
-        add: '',
+        add: <AddBank />,
         view: '/system/bank-cards'
       }
     ]

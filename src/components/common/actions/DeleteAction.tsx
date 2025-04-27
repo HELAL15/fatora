@@ -83,7 +83,7 @@ const DeleteAction: FC<IProps> = ({ id, endPoint, close, title, record }) => {
             <IoWarningOutline className="text-7xl text-primary" />
           ) : (
             // <SureIco />
-            'hhh'
+            <IoWarningOutline className="text-7xl text-primary" />
           )}
           {hasProtectedProperty ? (
             <>

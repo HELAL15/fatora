@@ -8,21 +8,34 @@
     "system":"system setting"
   },
   "table":{
-    "id":"id"
+    "id":"id",
+    "action":"action",
+    "bankName":"bank name",
+    "bankImg":"bank logo"
+  },
+  "actions":{
+    "edit":"edit",
+    "delete":"delete"
   },
   "heading":{
     "zakat":"zakat and income",
-    "invoiceData":"invoice data"
+    "invoiceData":"invoice data",
+    "banks":"banks",
+    "bankAccounts":"bank accounts"
   },
   "uploader":{
     "title":"Click or drag to upload files",
-    "invoiceLogo":"Attach the invoice logo"
+    "invoiceLogo":"Attach the invoice logo",
+    "bank":"bank logo"
   },
   "add":"add",
   "view":"view",
+  "delete":"delete",
+  "edit":"edit",
   "button":{
     "en":"en",
     "ar":"ar",
+    "add":"add",
     "save":"save",
     "back":"back",
     "confirm":"confirm",
@@ -42,6 +55,7 @@
       "en":"(english)"
     },
     "label":{
+      "bankName":"bank name",
       "invoiceName":"invoice name",
       "email":"email",
       "password":"password",
@@ -79,6 +93,7 @@
     "branches":"branches"
   },
   "bank":{
+    "bank":"Bank",
     "banks":"banks",
     "accounts":"bank accounts",
     "types":"Types of Bank Cards",

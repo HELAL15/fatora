@@ -1,8 +1,10 @@
 import { Modal } from 'antd';
-import React, { FC, memo, ReactNode, useState } from 'react';
+import React, { FC, memo, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IoAddOutline } from 'react-icons/io5';
 import Button from './Button';
+import useToggle from '../../lib/hooks/useToggle';
+import clsx from 'clsx';
 
 interface IProps {
   id?: string;
@@ -29,40 +31,28 @@ const DashboardModal: FC<IProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  // show
-  const [modalVisible, setModalVisible] = useState(false);
-
-  // open modal
-  const showModal = () => {
-    setModalVisible(true);
-  };
-
-  // close modal
-  const handleCancel = () => {
-    setModalVisible(false);
-  };
+  const [isToggle, toggle] = useToggle();
 
   return (
     <>
       {inHome ? (
         <button
           className="btn secondary-btn flex items-center gap-2 cursor-pointer"
-          onClick={showModal}
+          onClick={toggle}
         >
           {t('add-new')} <IoAddOutline className="text-lg" />
         </button>
       ) : inTable ? (
-        <Button onClick={showModal} title={'add'} />
+        <Button onClick={toggle} title={'add'} />
       ) : (
-        // <button
-        //   className="w-full h-full text-center cursor-pointer rounded-rounded px-4 py-1 underline text-blue-500 "
-        //   onClick={showModal}
-        // >
-        //   {t(`actions.${title}`)}
-        // </button>
         <button
-          className="w-full h-full text-start cursor-pointer"
-          onClick={showModal}
+          className={clsx(
+            `
+            cursor-pointer
+            ${icon ? 'text-xl' : 'w-full h-full text-start'}
+            `
+          )}
+          onClick={toggle}
         >
           {icon ? icon : t(`actions.${title}`)}
         </button>
@@ -71,9 +61,7 @@ const DashboardModal: FC<IProps> = ({
       <Modal
         maskClosable={true}
         destroyOnClose
-        title={`${t(`actions.${title}`)} ${
-          modalTitle ? t(`${modalTitle}.name`) : ''
-        }`}
+        title={`${t(`${title}`)} ${modalTitle ? t(`${modalTitle}`) : ''}`}
         width={
           responsive
             ? {
@@ -86,8 +74,8 @@ const DashboardModal: FC<IProps> = ({
               }
             : '500px'
         }
-        open={modalVisible}
-        onCancel={handleCancel || close}
+        open={isToggle}
+        onCancel={toggle || close}
         footer={null}
         centered
         className="dashboard-modal"
@@ -95,7 +83,7 @@ const DashboardModal: FC<IProps> = ({
         {React.cloneElement(
           children as React.ReactElement<{ close: () => void }>,
           {
-            close: handleCancel || close
+            close: toggle || close
           }
         )}
         {/* {children} */}

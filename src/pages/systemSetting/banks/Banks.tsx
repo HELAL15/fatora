@@ -5,22 +5,24 @@ import { useTranslation } from 'react-i18next';
 import { FieldValues } from 'react-hook-form';
 import DashboardModal from '../../../components/ui/DashboardModal';
 import DeleteAction from '../../../components/common/actions/DeleteAction';
+import AddBank from '../../../components/common/banks/bankTypes/AddBank';
 
 const Banks = () => {
   const { t } = useTranslation();
+  const title = 'bank.bank';
   const getMenu = (id: string, record: FieldValues) => [
     {
       key: '2',
       label: (
-        <DashboardModal id={id} modalTitle="level" title="edit">
-          <p>ffff</p>
+        <DashboardModal id={id} responsive modalTitle={title} title="edit">
+          <AddBank />
         </DashboardModal>
       )
     },
     {
       key: '3',
       label: (
-        <DashboardModal id={id} modalTitle="level" title="delete">
+        <DashboardModal id={id} modalTitle={title} title="delete">
           <DeleteAction
             id={id}
             endPoint="education-levels"
@@ -64,8 +66,8 @@ const Banks = () => {
         title="banks"
         hasBack
         body={
-          <DashboardModal inTable responsive>
-            {<p>dddd</p>}
+          <DashboardModal inTable responsive title="add" modalTitle="bank.bank">
+            <AddBank />
           </DashboardModal>
         }
       />

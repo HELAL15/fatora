@@ -10,6 +10,7 @@ import { sendPayload } from '../lib/utils/SendRequestes';
 import FormInput from '../components/common/FormInput';
 import Button from '../components/ui/Button';
 import Img from '../components/ui/Img';
+import { toast } from 'sonner';
 
 interface IFormInput extends Record<string, unknown> {
   email: string;
@@ -54,7 +55,7 @@ const LoginDashboard = () => {
 
       // dispatch(setAdmin(AdminData));
 
-      navigate('/dashboard');
+      navigate('/');
 
       message.success(data.message);
     },
@@ -69,6 +70,7 @@ const LoginDashboard = () => {
   const onSubmit = (values: IFormInput) => {
     mutate(values);
     navigate('/');
+    toast.success('login successfully');
   };
 
   return (

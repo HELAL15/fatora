@@ -3,17 +3,17 @@ import FormInput from '../../FormInput';
 import ImageUploader from '../../ImageUploader';
 import Button from '../../../ui/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getAddBankSchema } from '../../../../lib/validation/addBankValidation';
 import { FC } from 'react';
+import { getCardTypeSchema } from '../../../../lib/validation/cardTypeSchema';
 
 interface IProps {
   close?: () => void;
 }
 
-const AddBank: FC<IProps> = ({ close }) => {
+const AddCardType: FC<IProps> = ({ close }) => {
   const formObject: FieldValues = {
     mode: 'all',
-    resolver: yupResolver(getAddBankSchema())
+    resolver: yupResolver(getCardTypeSchema())
   };
   const {
     control,
@@ -36,17 +36,17 @@ const AddBank: FC<IProps> = ({ close }) => {
         className="grid grid-cols-1 md:grid-cols-2 gap-6"
       >
         <FormInput
-          label="bankName"
-          placeholder="bankName"
-          name="bank_ar"
+          label="typeName"
+          placeholder="typeName"
+          name="type_ar"
           lang="ar"
           control={control}
           errors={errors}
         />
         <FormInput
-          label="bankName"
-          placeholder="bankName"
-          name="bank_en"
+          label="typeName"
+          placeholder="typeName"
+          name="type_en"
           lang="en"
           control={control}
           errors={errors}
@@ -56,15 +56,15 @@ const AddBank: FC<IProps> = ({ close }) => {
             control={control}
             name="file"
             errors={errors}
-            label="bank"
+            label="cardType"
           />
         </div>
         <div className="md:col-span-2 flex justify-end">
-          <Button title="confirm" />
+          <Button title="save" />
         </div>
       </form>
     </>
   );
 };
 
-export default AddBank;
+export default AddCardType;

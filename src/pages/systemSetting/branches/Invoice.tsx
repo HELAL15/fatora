@@ -1,5 +1,5 @@
 import { Drawer, TableColumnsType } from 'antd';
-import invoiceLogo from '../../../assets/logo-invoice.png';
+import invoiceLogo from '../../../assets/logo.png';
 import Table from '../../../components/common/Table';
 import TitleInfo from '../../../components/common/TitleInfo';
 import BankTypePrice from '../../../components/ui/BankTypePrice';

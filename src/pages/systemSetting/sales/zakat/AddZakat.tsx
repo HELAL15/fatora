@@ -6,9 +6,8 @@ import Button from '../../../../components/ui/Button';
 import Heading from '../../../../components/common/Heading';
 import { Radio } from 'antd';
 import { IoBan } from 'react-icons/io5';
-
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getAddZakatSchema } from '../../../../validation/addZakatSchema';
+import { getAddZakatSchema } from '../../../../lib/validation/addZakatSchema';
 
 const AddZakat = () => {
   const {
@@ -18,17 +17,7 @@ const AddZakat = () => {
   } = useForm({
     mode: 'all',
     defaultValues: {
-      invoiceType: 'testing',
-      temporaryPassword: '',
-      email: '',
-      commonName: '',
-      organizerUnit: '',
-      organizingName: '',
-      tax: '',
-      registeredAddress: '',
-      supplyActivities: '',
-      serialNumber: '',
-      registrationNumber: ''
+      invoiceType: 'testing'
     },
     resolver: yupResolver(getAddZakatSchema())
   });

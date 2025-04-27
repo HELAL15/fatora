@@ -7,6 +7,14 @@
   --primaryColor: #247dbd;
 }
 
+/* @theme {
+  --color-primary: #247dbd;
+  --color-secondary: #0fac6d;
+  --color-body: #f9fafe;
+  --color-body-secondary: #ffffff;
+  --font-main: 'Almarai', sans-serif;
+} */
+
 * {
   box-sizing: border-box;
   scroll-behavior: smooth;
@@ -21,9 +29,28 @@ section {
   @apply my-10;
 }
 
+section[aria-live='polite'] {
+  @apply !m-0;
+}
+.ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+  @apply border-transparent bg-light shadow-none !py-3 !mt-1;
+}
+.ant-select-focused.ant-select-outlined:not(.ant-select-disabled):not(
+    .ant-select-customize-input
+  ):not(.ant-pagination-size-changer)
+  .ant-select-selector {
+  @apply shadow-none border-primary;
+}
 /* modal  */
 .dashboard-modal .ant-modal-content {
   @apply !p-0;
+}
+.dashboard-modal .ant-modal-title {
+  color: white !important;
+}
+
+.dashboard-modal .ant-modal-close-icon {
+  color: white !important;
 }
 
 .dashboard-modal .ant-modal-header {
