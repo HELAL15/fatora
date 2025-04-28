@@ -56,6 +56,8 @@ const AddSellingInvoice = () => {
       align: 'center',
       render: (_, record, index) => {
         if (index === 0) {
+          const r = record;
+          console.log(r)
           return (
             <div className="flex items-center justify-center gap-4">
               <button
