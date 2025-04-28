@@ -1,4 +1,4 @@
-import { Input, Tooltip } from 'antd';
+import { DatePicker, Input, Tooltip } from 'antd';
 import clsx from 'clsx';
 import {
   Controller,
@@ -61,6 +61,18 @@ function FormInput<T extends FieldValues>({
                     `!shadow-none !mt-1 !bg-light !outline-none disabled:bg-[rgba(0_0_0_0.04)] disabled:text-primary disabled:cursor-not-allowed  w-full px-4 !py-3 text-base rounded-rounded border !border-transparent  duration-300 disabled:hover:border-slate-200 hover:!border-primary disabled:focus:border-slate-200 focus:!border-primary ${
                       errorMessage ? 'border-red-500' : ''
                     }`
+                  )}
+                />
+              ) : type === 'date' ? (
+                <DatePicker
+                  {...field}
+                  id={name}
+                  className={clsx(
+                    `!shadow-none !mt-1 !bg-light !outline-none disabled:bg-[rgba(0_0_0_0.04)] disabled:text-primary disabled:cursor-not-allowed  w-full px-4 !py-3 text-base rounded-rounded border !border-transparent  duration-300 disabled:hover:border-slate-200 hover:!border-primary disabled:focus:border-slate-200 focus:!border-primary ${
+                      errorMessage
+                        ? '!border-red-500 focus:!border-red-500'
+                        : ''
+                    }  `
                   )}
                 />
               ) : (

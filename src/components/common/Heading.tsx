@@ -43,7 +43,7 @@ const Heading: FC<IProps> = ({
 
   return (
     <>
-      <SectionWithContainer>
+      <SectionWithContainer cx="!mb-0">
         <div className="flex items-center justify-between">
           <h1 className="text-lg font-semibold">{t(`heading.${title}`)}</h1>
           {text && (

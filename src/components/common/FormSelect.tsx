@@ -76,6 +76,7 @@ const FormSelect = <T extends FieldValues>({
             {...field}
             mode={mode}
             allowClear
+            status={errorMessage && 'error'}
             open={open}
             disabled={loading || disabled}
             className="w-full !rounded-[5px] !shadow-none !outline-none !min-h-[47.7px] md:!min-h-[47.7px]"
@@ -109,7 +110,7 @@ const FormSelect = <T extends FieldValues>({
       />
 
       {errorMessage && (
-        <p className="text-red-500 text-sm mt-1">{errorMessage}</p>
+        <p className="text-red-500 text-xs mt-2">{errorMessage}</p>
       )}
     </div>
   );
