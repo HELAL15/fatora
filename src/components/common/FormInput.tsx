@@ -1,5 +1,6 @@
 import { DatePicker, Input, Tooltip } from 'antd';
 import clsx from 'clsx';
+import dayjs from 'dayjs';
 import {
   Controller,
   Control,
@@ -20,6 +21,7 @@ interface CustomInputProps<T extends FieldValues> {
   label?: string;
   hint?: string;
   lang?: string;
+  hasLabel?: boolean;
 }
 const { Password } = Input;
 function FormInput<T extends FieldValues>({
@@ -31,7 +33,8 @@ function FormInput<T extends FieldValues>({
   errors,
   label = '',
   hint = '',
-  lang = ''
+  lang = '',
+  hasLabel = true
 }: CustomInputProps<T>) {
   const { t } = useTranslation();
   const error = errors?.[name] as FieldError | undefined;
@@ -45,10 +48,12 @@ function FormInput<T extends FieldValues>({
         render={({ field }) => (
           <div className="space-y-1">
             <div className="form-input">
-              <label htmlFor={name} className="font-semibold text-sm px-1">
-                {t(`input.label.${label}`)}{' '}
-                {lang ? t(`input.lang.${lang}`) : ''}
-              </label>
+              {label && hasLabel && (
+                <label htmlFor={name} className="font-semibold text-sm px-1">
+                  {t(`input.label.${label}`)}{' '}
+                  {lang ? t(`input.lang.${lang}`) : ''}
+                </label>
+              )}
               {type === 'password' ? (
                 <Password
                   {...field}
@@ -67,6 +72,8 @@ function FormInput<T extends FieldValues>({
                 <DatePicker
                   {...field}
                   id={name}
+                  defaultValue={dayjs()}
+                  format="YYYY-MM-DD"
                   className={clsx(
                     `!shadow-none !mt-1 !bg-light !outline-none disabled:bg-[rgba(0_0_0_0.04)] disabled:text-primary disabled:cursor-not-allowed  w-full px-4 !py-3 text-base rounded-rounded border !border-transparent  duration-300 disabled:hover:border-slate-200 hover:!border-primary disabled:focus:border-slate-200 focus:!border-primary ${
                       errorMessage

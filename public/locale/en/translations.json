@@ -11,7 +11,13 @@
     "id":"id",
     "action":"action",
     "bankName":"bank name",
-    "bankImg":"bank logo"
+    "bankImg":"bank logo",
+    "total":"total",
+    "price":"price",
+    "cost":"cost",
+    "item":"item",
+    "category":"category",
+    "itemNumber":"item number"
   },
   "actions":{
     "edit":"edit",
@@ -33,6 +39,7 @@
   "delete":"delete",
   "edit":"edit",
   "button":{
+    "continue":"continue",
     "en":"en",
     "ar":"ar",
     "add":"add",
@@ -67,7 +74,13 @@
       "registeredAddress":"registered Address",
       "supplyActivities":"supply Activities",
       "serialNumber":"serial Number",
-      "registrationNumber":"registration Number"
+      "registrationNumber":"registration Number",
+      "total":"total",
+      "price":"price",
+      "cost":"cost",
+      "item":"item",
+      "category":"category",
+      "itemNumber":"item number"
     },
     "placeholder":"enter {{label}}",
     "validation":{
@@ -111,6 +124,11 @@
   "categories":{
     "products":"products"
   },
+  "SAR":"SAR",
   "from":"from",
-  "incorporation":"incorporation"
+  "incorporation":"incorporation",
+  "billValue":"bill value",
+  "price":"price",
+  "totalValue":"total value",
+  "count":"count"
 }

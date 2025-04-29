@@ -9,6 +9,7 @@ import {
   Path,
   PathValue
 } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 /**
  * ==> Props interface
@@ -27,6 +28,7 @@ interface IProps<T extends FieldValues> {
   hasColor?: boolean;
   mode?: 'multiple' | 'tags' | undefined;
   disabled?: boolean;
+  lang?: string;
 }
 
 /**
@@ -47,11 +49,12 @@ const FormSelect = <T extends FieldValues>({
   onChange,
   hasColor = false,
   mode,
-  disabled = false
+  disabled = false,
+  lang = ''
 }: IProps<T>) => {
   const errorMessage = errors[name]?.message as string;
   const [open, setOpen] = useState<boolean>(false);
-
+  const { t } = useTranslation();
   const handleChange = (value: string) => {
     setOpen(false);
     onChange?.(value);
@@ -61,7 +64,7 @@ const FormSelect = <T extends FieldValues>({
     <div className="input-package">
       {label && (
         <label htmlFor={name} className="font-semibold text-sm px-1">
-          {label}
+          {t(`input.label.${label}`)} {lang ? t(`input.lang.${lang}`) : ''}
         </label>
       )}
 

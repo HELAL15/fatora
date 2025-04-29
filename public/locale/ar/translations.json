@@ -11,7 +11,13 @@
     "id":"التسلسل",
     "action":"الإجراء",
     "bankName":"اسم البنك",
-    "bankImg":"شعار البنك"
+    "bankImg":"شعار البنك",
+    "total": "الإجمالي",
+    "price": "السعر",
+    "cost": "التكلفة",
+    "item": "العنصر",
+    "category": "الفئة",
+    "itemNumber": "رقم العنصر"
   },
   "actions":{
     "edit":"تعديل",
@@ -33,6 +39,7 @@
   "delete":"حذف",
   "edit":"تعديل",
   "button": {
+    "continue":"استمرار",
     "en":"en",
     "ar":"ar",
     "add":"إضافة",
@@ -67,7 +74,14 @@
     "registeredAddress":"الرقم المسجل",
     "supplyActivities":"فئة الأعمال",
     "serialNumber":"الرقم التسلسلي",
-    "registrationNumber":"رقم التسجيل"
+    "registrationNumber":"رقم التسجيل",
+    "number":"رقم العنصر",
+    "total": "الإجمالي",
+    "price": "السعر",
+    "cost": "التكلفة",
+    "item": "العنصر",
+    "category": "الفئة",
+    "itemNumber": "رقم العنصر"
   },
   "validation":{
       "required":"هذا الحقل مطلوب"
@@ -111,6 +125,11 @@
 "categories":{
   "products":"المنتجات"
 },
+"SAR":"ر.س",
   "from":"من",
-  "incorporation":"من التأسيس"
+  "incorporation":"من التأسيس",
+    "billValue":"قيمة الفاتورة",
+    "price":"السعر",
+    "totalValue":"القيمة الإجمالية",
+    "count":"العدد"
 }
