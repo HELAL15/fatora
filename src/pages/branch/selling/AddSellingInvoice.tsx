@@ -230,8 +230,7 @@ const AddSellingInvoice = () => {
     {
       title: t('table.item'),
       dataIndex: 'item',
-      align: 'center' as const,
-      width: 210
+      align: 'center' as const
     },
     {
       title: t('table.cost'),
@@ -302,6 +301,11 @@ const AddSellingInvoice = () => {
                 columns={columns}
                 dataSource={tableData}
                 pagination={false}
+                loading={{
+                  spinning: false,
+                  size: 'large'
+                }}
+                scroll={{ x: 'max-content' }}
                 bordered
                 size="small"
                 components={{
