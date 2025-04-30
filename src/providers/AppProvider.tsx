@@ -4,6 +4,10 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AntdProvider from './AntdProvider';
 import { Toaster } from 'sonner';
+import { persistor, store } from '../store/store';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import LoaderPersist from '../components/ui/LoaderPersist';
 
 interface IProps {
   children: ReactNode;
@@ -23,13 +27,17 @@ const queryClient = new QueryClient({
 const AppProvider: FC<IProps> = ({ children }) => {
   return (
     <>
-      <Router>
-        <QueryClientProvider client={queryClient}>
-          <AntdProvider>{children}</AntdProvider>
-          <Toaster position="top-center" richColors={true} />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <QueryClientProvider client={queryClient}>
+            <PersistGate loading={<LoaderPersist />} persistor={persistor}>
+              <AntdProvider>{children}</AntdProvider>
+            </PersistGate>
+            <Toaster position="top-center" richColors={true} />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
+        </Router>
+      </Provider>
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { FieldValues, useForm } from 'react-hook-form';
-import { useState } from 'react';
-import { Table, Tooltip } from 'antd';
+import { useCallback, useState } from 'react';
+import { Table, TableColumnsType, Tooltip } from 'antd';
 import FormInput from '../../../components/common/FormInput';
 import FormSelect from '../../../components/common/FormSelect';
 import Heading from '../../../components/common/Heading';
@@ -16,6 +16,13 @@ import {
   getAddSellingInvoiceSchema
 } from '../../../lib/validation/addSellingInvoiceSchema';
 import { toast } from 'sonner';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../store/store';
+import {
+  removeInvoiceItem,
+  setInvoice,
+  updateInvoiceItem
+} from '../../../store/features/addSellingInvoiceSlice';
 
 interface TableItem {
   key: string;
@@ -29,7 +36,10 @@ interface TableItem {
 
 const AddSellingInvoice = () => {
   const { t } = useTranslation();
-  const [tableData, setTableData] = useState<TableItem[]>([]);
+  const dispatch = useDispatch();
+  const { data: tableData } = useSelector(
+    (state: RootState) => state.sellingInvoice || []
+  );
   const [editingRow, setEditingRow] = useState<string | null>(null);
   const defaultTableValues = {
     number: '',
@@ -44,19 +54,27 @@ const AddSellingInvoice = () => {
     clientName: '',
     date: ''
   };
-  const totalBills = tableData.reduce(
-    (sum, item) => sum + Number(item.cost),
-    0
-  );
-  const totalVats = tableData.reduce(
-    (sum, item) => sum + Number(item.price),
-    0
-  );
-  const totalValues = tableData.reduce(
-    (sum, item) => sum + Number(item.total),
-    0
-  );
-  const tableItemsCount = tableData.length;
+  const calculateTotals = useCallback(() => {
+    const totalBills = tableData.reduce(
+      (sum, item) => sum + Number(item.cost),
+      0
+    );
+    const totalVats = tableData.reduce(
+      (sum, item) => sum + Number(item.price),
+      0
+    );
+    const totalValues = tableData.reduce(
+      (sum, item) => sum + Number(item.total),
+      0
+    );
+    const tableItemsCount = tableData.length;
+
+    return { totalBills, totalVats, totalValues, tableItemsCount };
+  }, [tableData]);
+
+  const { totalBills, totalVats, totalValues, tableItemsCount } =
+    calculateTotals();
+
   const totalInvoice = [
     { id: 1, title: t('billValue'), desc: `${totalBills} ${t('SAR')}` },
     { id: 2, title: t('price'), desc: `${totalVats} ${t('SAR')}` },
@@ -70,6 +88,7 @@ const AddSellingInvoice = () => {
     <InfoCard key={item.id} title={item.title} desc={item.desc} />
   ));
 
+  // client info controller
   const {
     control: clientControl,
     handleSubmit: handleClientSubmit,
@@ -80,6 +99,7 @@ const AddSellingInvoice = () => {
     resolver: yupResolver(getAddSellingInvoiceClientSchema())
   });
 
+  // table form controller
   const {
     control: tableControl,
     handleSubmit: handleTableSubmit,
@@ -91,57 +111,86 @@ const AddSellingInvoice = () => {
     resolver: yupResolver(getAddSellingInvoiceSchema())
   });
 
-  const onAddRow = (data: TableItem) => {
-    const newItem = {
-      ...data,
-      key: editingRow || tableData.length.toString()
-    };
+  // to add new item or update item bases on his status
+  const onAddRow = useCallback(
+    (data: TableItem) => {
+      const newItem = {
+        ...data,
+        key: `${Date.now()}-${Math.random()}`
+      };
 
-    if (editingRow !== null) {
-      setTableData((prev) =>
-        prev.map((item) => (item.key === editingRow ? newItem : item))
-      );
-      setEditingRow(null);
-    } else {
-      setTableData((prev) => [...prev, newItem]);
-    }
-    resetTable(defaultTableValues);
-  };
-
-  const handleEdit = (key: string) => {
-    const row = tableData.find((item) => item.key === key);
-    if (row) {
-      resetTable(row);
-      setEditingRow(key);
-    }
-  };
-
-  const handleDelete = (key: string) => {
-    setTableData((prev) => prev.filter((item) => item.key !== key));
-    resetTable(defaultTableValues);
-    setEditingRow(null);
-  };
-
-  const onSubmitAll = (clientData: FieldValues) => {
-    if (tableData.length === 0) return;
-
-    const finalData = {
-      client: clientData,
-      items: tableData,
-      totals: {
-        billValue: totalBills,
-        vat: totalVats,
-        totalValue: totalValues,
-        count: tableItemsCount
+      if (editingRow !== null) {
+        dispatch(updateInvoiceItem(newItem));
+        setEditingRow(null);
+      } else {
+        dispatch(setInvoice([...tableData, newItem]));
       }
-    };
 
-    console.log('Final Data:', finalData);
-    toast.success(
-      `invoice added successfully , client id : #${clientData.clientName} `
-    );
-  };
+      resetTable({
+        number: '',
+        category: '',
+        item: '',
+        cost: '',
+        price: '',
+        total: ''
+      });
+    },
+    [dispatch, tableData, editingRow, resetTable]
+  );
 
+  // get item want to update and send it to add function to be updated
+  const handleEdit = useCallback(
+    (key: string) => {
+      const row = tableData.find((item) => item.key === key);
+      if (row) {
+        resetTable(row);
+        setEditingRow(key);
+      }
+    },
+    [tableData, resetTable]
+  );
+
+  // delete item from table
+  const handleDelete = useCallback(
+    (key: string) => {
+      dispatch(removeInvoiceItem(key));
+      resetTable({
+        number: '',
+        category: '',
+        item: '',
+        cost: '',
+        price: '',
+        total: ''
+      });
+      setEditingRow(null);
+    },
+    [dispatch, resetTable]
+  );
+
+  const onSubmitAll = useCallback(
+    (clientData: FieldValues) => {
+      if (tableData.length === 0) return;
+
+      const finalData = {
+        client: clientData,
+        items: tableData,
+        totals: {
+          billValue: totalBills,
+          vat: totalVats,
+          totalValue: totalValues,
+          count: tableItemsCount
+        }
+      };
+
+      console.log('Final Data:', finalData);
+      toast.success(
+        `Invoice added successfully, client id: #${clientData.clientName}`
+      );
+    },
+    [tableData, totalBills, totalVats, totalValues, tableItemsCount]
+  );
+
+  // form input row for table
   const inputRow = (
     <tr key="input-row">
       <td>
@@ -201,7 +250,7 @@ const AddSellingInvoice = () => {
           type="number"
         />
       </td>
-      <td>
+      <td className="fixed-right">
         <div className="w-full flex items-center justify-center">
           <Button
             icon={
@@ -216,7 +265,8 @@ const AddSellingInvoice = () => {
     </tr>
   );
 
-  const columns = [
+  // table columns
+  const columns: TableColumnsType = [
     {
       title: t('table.itemNumber'),
       dataIndex: 'number',
@@ -251,7 +301,7 @@ const AddSellingInvoice = () => {
       title: t('table.action'),
       dataIndex: 'actions',
       align: 'center' as const,
-      render: (_: unknown, record: TableItem) => (
+      render: (_: unknown, record) => (
         <div className="flex justify-center items-center gap-2">
           <Button icon={<FaEdit />} onClick={() => handleEdit(record.key)} />
           <Button icon={<FaTrash />} onClick={() => handleDelete(record.key)} />
@@ -305,7 +355,7 @@ const AddSellingInvoice = () => {
                   spinning: false,
                   size: 'large'
                 }}
-                scroll={{ x: 'max-content' }}
+                scroll={{ x: 1300 }}
                 bordered
                 size="small"
                 components={{
