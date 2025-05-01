@@ -33,9 +33,14 @@ const sellingInvoiceSlice = createSlice({
       state.data = state.data.filter(item => item.key !== action.payload);
     },
     updateInvoiceItem: (state, action: PayloadAction<TableItem>) => {
-      state.data = state.data.map(item =>
-        item.key === action.payload.key ? action.payload : item
-      );
+      const updatedItem = action.payload;
+      const index = state.data.findIndex(item=>item.key === updatedItem.key);
+      if(index !== -1){
+        state.data[index] = updatedItem;
+      }
+      // state.data = state.data.map(item =>
+      //   item.key === action.payload.key ? action.payload : item
+      // );
     },
   },
 });

@@ -116,10 +116,12 @@ const AddSellingInvoice = () => {
     (data: TableItem) => {
       const newItem = {
         ...data,
-        key: `${Date.now()}-${Math.random()}`
+        key: editingRow !== null ? editingRow : `${Date.now()}-${Math.random()}`
       };
 
       if (editingRow !== null) {
+        console.log(newItem);
+
         dispatch(updateInvoiceItem(newItem));
         setEditingRow(null);
       } else {
