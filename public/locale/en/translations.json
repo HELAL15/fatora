@@ -27,7 +27,8 @@
     "zakat":"zakat and income",
     "invoiceData":"invoice data",
     "banks":"banks",
-    "bankAccounts":"bank accounts"
+    "bankAccounts":"bank accounts",
+    "selling":"add selling invoice"
   },
   "uploader":{
     "title":"Click or drag to upload files",
@@ -62,6 +63,8 @@
       "en":"(english)"
     },
     "label":{
+      "clientName":"client name",
+      "date":"date",
       "bankName":"bank name",
       "invoiceName":"invoice name",
       "email":"email",

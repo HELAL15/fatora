@@ -8,7 +8,7 @@ import SectionWithContainer from '../../../components/common/SectionWithContaine
 import Img from '../../../components/ui/Img';
 import Button from '../../../components/ui/Button';
 import useGoBack from '../../../lib/utils/GoBack';
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import FormInput from '../../../components/common/FormInput';
 import ImageUploader from '../../../components/common/ImageUploader';
@@ -18,9 +18,19 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import Heading from '../../../components/common/Heading';
 import { colorPrimary } from '../../../lib/constant';
+import { useDispatch, useSelector } from 'react-redux';
+import { setInvoiceDesign } from '../../../store/features/designInvoiceSlice';
+import { RootState } from '../../../store/store';
+import { toBase64 } from '../../../lib/utils/toBase64';
 
 const Invoice = () => {
   const { t } = useTranslation();
+  const goBack = useGoBack();
+  const dispatch = useDispatch();
+
+  const { data: invoiceData } = useSelector(
+    (state: RootState) => state.designInvoice || []
+  );
 
   const methods = InvoicePaymentMethodsData.map((method) => {
     const { id, img, price } = method;
@@ -55,8 +65,6 @@ const Invoice = () => {
     }
   ];
 
-  const goBack = useGoBack();
-
   const [open, setOpen] = useState(false);
   const onClose = () => {
     setOpen(false);
@@ -76,22 +84,60 @@ const Invoice = () => {
     defaultValues: {
       img: '',
       name: 'فاتورة ضريبية مبسطة',
-      primaryColor: colorPrimary,
-      secondaryColor: ''
+      primaryColor: colorPrimary
     }
   });
-
+  useLayoutEffect(() => {
+    if (invoiceData) {
+      reset(invoiceData);
+    }
+  }, [invoiceData, reset]);
   const handleCancel = () => {
     onClose();
     reset();
   };
 
   const { name, img, primaryColor } = watch();
-  const imageSrc = getImageSrc(img, invoiceLogo);
 
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
-    // onClose();
+  const imageSrc =
+    (invoiceData as { img?: { base64: string } })?.img?.base64 ||
+    getImageSrc(img, invoiceLogo);
+
+  // const imageSrc = getImageSrc(img, invoiceLogo);
+
+  const onSubmit = async (data: FieldValues) => {
+    const actualImageFile = data.img?.originFileObj || data.img;
+
+    let base64Image = null;
+
+    if (actualImageFile instanceof File) {
+      base64Image = await toBase64(actualImageFile);
+    }
+
+    const invoiceDesignData = {
+      name: data.name,
+      primaryColor: data.primaryColor,
+      img:
+        actualImageFile instanceof Blob
+          ? {
+              name:
+                actualImageFile instanceof File
+                  ? actualImageFile.name
+                  : 'uploaded-image',
+              type: actualImageFile.type,
+              size: actualImageFile.size,
+              base64: base64Image
+            }
+          : data.img
+    };
+
+    const dataWithoutImg = {
+      name: data.name,
+      primaryColor: data.primaryColor
+    };
+
+    dispatch(setInvoiceDesign(data?.img ? invoiceDesignData : dataWithoutImg));
+    onClose();
   };
 
   return (
@@ -112,6 +158,7 @@ const Invoice = () => {
             <ImageUploader
               label="invoiceLogo"
               name="img"
+              defaultValue={imageSrc}
               isOpen
               control={control}
               errors={errors}

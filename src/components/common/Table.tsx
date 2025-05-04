@@ -53,8 +53,10 @@ const CustomTable: FC<IProps> = ({
   // vars
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const { i18n, t } = useTranslation();
-  const lang = i18n.language;
+  const {
+    i18n: { language: lang },
+    t
+  } = useTranslation();
 
   // fetch data
   const { data: table, isLoading: loading } = useQuery({
@@ -65,12 +67,13 @@ const CustomTable: FC<IProps> = ({
           query ? query : ''
         }`
       ),
-    retry: false
+    retry: false,
+    enabled: !!endPoint
   });
 
   const tableDataView = hasSperateData ? sperateData : table?.data;
   useEffect(() => {
-    setCurrentPage(1); // Reset to page 1 when the query changes
+    setCurrentPage(1);
   }, [query]);
   // table columns
   const columns: TableColumnsType<IProps> = getMenu

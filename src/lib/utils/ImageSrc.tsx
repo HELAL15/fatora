@@ -4,7 +4,7 @@ export function getImageSrc(
 ): string {
   if (!img) return fallback;
 
-  if (typeof img !== 'string' && img instanceof File) {
+  if (img instanceof File) {
     return URL.createObjectURL(img);
   }
 

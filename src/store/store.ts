@@ -1,46 +1,38 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
-import Cookies from 'js-cookie'
+import { persistStore, persistReducer } from 'redux-persist';
+// import Cookies from 'js-cookie'
+// import  CookieStorage  from 'redux-persist-cookie-storage'
 // @ts-expect-error CookieStorage type definitions are incomplete
-import  CookieStorage  from 'redux-persist-cookie-storage'
+import createIndexedDBStorage from 'redux-persist-indexeddb-storage';
 import UserSlice from './features/UserSlice';
 import sellingInvoiceSlice from './features/addSellingInvoiceSlice'
-
+import designInvoiceSlice from './features/designInvoiceSlice'
 
 // Combine Reducers
 const rootReducer = combineReducers({ 
   user: UserSlice,
-  sellingInvoice:sellingInvoiceSlice
+  sellingInvoice:sellingInvoiceSlice,
+  designInvoice:designInvoiceSlice,
 });
-// const customCookieStorage = {
-//   getItem: (key: string) => {
-//     return Promise.resolve(Cookies.get(key) || null);
+
+// const cookieStorage = new CookieStorage({
+//   cookies: Cookies,
+//   setCookieOptions: {
+//     secure: true,
+//     sameSite: "strict",
+//     path: "/",
 //   },
-//   setItem: (key: string, value: string) => {
-//     Cookies.set(key, value, {
-//       secure: true,
-//       sameSite: "strict",
-//       path: "/",
-//     });
-//     return Promise.resolve();
-//   },
-//   removeItem: (key: string) => {
-//     Cookies.remove(key);
-//     return Promise.resolve();
-//   },
-// };
-const cookieStorage = new CookieStorage({
-  cookies: Cookies,
-  setCookieOptions: {
-    secure: true,
-    sameSite: "strict",
-    path: "/",
-  },
+// });
+// Create IndexedDB storage
+const storage = createIndexedDBStorage({
+  name: 'MyAppDB',
+  storeName: 'reduxStore',
+  version: 1,
 });
 const persistConfig = {
   key: 'root',
-  storage:  cookieStorage,
-  whitelist: ['sellingInvoice'],
+  storage:  storage,
+  whitelist: ['sellingInvoice','designInvoice'],
 };
 
 // Persisted Reducer
@@ -51,11 +43,9 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
+      serializableCheck: false,
     }),
-  devTools: true,
+  devTools: import.meta.env.VITE_NODE_ENV === 'development',
 });
 
 export const persistor = persistStore(store);
