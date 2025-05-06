@@ -1,19 +1,19 @@
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { BASE_URL, LANG } from '../constant';
 
 
-// Initial language from localStorage or default to 'en'
-const lang = localStorage.getItem("i18nextLng") || "en";
-const baseUrl = import.meta.env.VITE_BASE_URL;
+
+
 
 export const request = axios.create({
-  baseURL: baseUrl,
+  baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
     accept: "application/json",
-    "accept-language": lang,
-    Lang: lang,
+    "accept-language": LANG,
+    Lang: LANG,
   },
 });
 
@@ -25,15 +25,15 @@ request.interceptors.request.use(
       // const token =
       //   Cookies.get("accessTokenAdmin") || Cookies.get("access_token") ;
 
-      const lang = localStorage.getItem("i18nextLng");
+
 
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
 
-      if (lang) {
-        config.headers["Accept-Language"] = lang;
-        config.headers["Lang"] = lang;
+      if (LANG) {
+        config.headers["Accept-Language"] = LANG;
+        config.headers["Lang"] = LANG;
       }
 
       return config;
