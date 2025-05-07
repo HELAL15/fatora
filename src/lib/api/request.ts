@@ -1,9 +1,9 @@
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { BASE_URL, LANG } from '../constant';
+import { BASE_URL } from '../constant';
 
-
+const lang = localStorage.getItem("i18nextLng") || "en";
 
 
 
@@ -12,8 +12,8 @@ export const request = axios.create({
   headers: {
     "Content-Type": "application/json",
     accept: "application/json",
-    "accept-language": LANG,
-    Lang: LANG,
+    "accept-language": lang,
+    Lang: lang,
   },
 });
 
@@ -30,10 +30,10 @@ request.interceptors.request.use(
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
-
-      if (LANG) {
-        config.headers["Accept-Language"] = LANG;
-        config.headers["Lang"] = LANG;
+      const lang = localStorage.getItem("i18nextLng") || "en";
+      if (lang) {
+        config.headers["Accept-Language"] = lang;
+        config.headers["Lang"] = lang;
       }
 
       return config;

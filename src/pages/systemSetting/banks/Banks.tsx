@@ -6,6 +6,7 @@ import { FieldValues } from 'react-hook-form';
 import DashboardModal from '../../../components/ui/DashboardModal';
 import DeleteAction from '../../../components/common/actions/DeleteAction';
 import AddBank from '../../../components/common/banks/bankTypes/AddBank';
+import ImageViewerTable from '../../../components/common/ImageViewerTable';
 
 const Banks = () => {
   const { t } = useTranslation();
@@ -15,7 +16,7 @@ const Banks = () => {
       key: '2',
       label: (
         <DashboardModal id={id} responsive modalTitle={title} title="edit">
-          <AddBank />
+          <AddBank update id={id} />
         </DashboardModal>
       )
     },
@@ -25,8 +26,8 @@ const Banks = () => {
         <DashboardModal id={id} modalTitle={title} title="delete">
           <DeleteAction
             id={id}
-            endPoint="education-levels"
-            title="level"
+            endPoint="bank/api/v1/banks"
+            title="bank"
             record={record}
           />
         </DashboardModal>
@@ -37,26 +38,16 @@ const Banks = () => {
   const columns: TableColumnsType = [
     {
       title: t('table.bankName'),
-      dataIndex: 'product',
+      dataIndex: 'name',
       align: 'center'
     },
     {
       title: t('table.bankImg'),
-      dataIndex: 'quantity',
-      align: 'center'
-    }
-  ];
-
-  const data = [
-    {
-      id: 1,
-      product: 'dummy data',
-      quantity: 200
-    },
-    {
-      id: 2,
-      product: 'dummy data',
-      quantity: 200
+      dataIndex: 'media',
+      align: 'center',
+      render: (media) => {
+        return <ImageViewerTable src={media} />;
+      }
     }
   ];
 
@@ -71,12 +62,7 @@ const Banks = () => {
           </DashboardModal>
         }
       />
-      <Table
-        cols={columns}
-        getMenu={getMenu}
-        hasSperateData={true}
-        sperateData={data}
-      />
+      <Table cols={columns} getMenu={getMenu} endPoint="bank/api/v1/banks" />
     </>
   );
 };

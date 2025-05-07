@@ -13,8 +13,12 @@ export const sendPayload = async (endpoint: string, payload: FieldValues | FormD
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
+      // const errorMessage = error.response.data.errors.message || 'An Axios error occurred';
       const errorMessage =
-        error.response?.data?.message || 'An Axios error occurred';
+      error.response?.data?.errors?.message || 
+      error.response?.data?.message ||         
+      error.message ||                       
+      'An Axios error occurred';    
       throw {error , message:errorMessage};
     } else {
       throw new Error("An unexpected error occurred");

@@ -21,7 +21,6 @@ interface IProps {
 
 const DashboardModal: FC<IProps> = ({
   title,
-  modalTitle,
   children,
   inHome,
   responsive,
@@ -61,7 +60,7 @@ const DashboardModal: FC<IProps> = ({
       <Modal
         maskClosable={true}
         destroyOnClose
-        title={`${t(`${title}`)} ${modalTitle ? t(`${modalTitle}`) : ''}`}
+        title={`${t(`${title}`)}`}
         width={
           responsive
             ? {

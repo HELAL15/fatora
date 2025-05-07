@@ -11,6 +11,7 @@ import { FieldValues } from 'react-hook-form';
 import { IoWarningOutline } from 'react-icons/io5';
 import { DeleteData } from '../../../lib/utils/SendRequestes';
 import Button from '../../ui/Button';
+import { toast } from 'sonner';
 
 /**
  * ==> props interface
@@ -43,7 +44,7 @@ const DeleteAction: FC<IProps> = ({ id, endPoint, close, title, record }) => {
   const queryClient = useQueryClient();
   const { mutate, isPending, data } = useMutation({
     mutationFn: () => DeleteData(`${endPoint}/${id}`),
-    onSuccess: () => {
+    onSuccess: (data) => {
       if (close) {
         close();
       }
@@ -57,6 +58,7 @@ const DeleteAction: FC<IProps> = ({ id, endPoint, close, title, record }) => {
             : endPoint
         ]
       });
+      toast.success(data.message);
     },
     onError: (error) => {
       queryClient.invalidateQueries({
@@ -67,7 +69,6 @@ const DeleteAction: FC<IProps> = ({ id, endPoint, close, title, record }) => {
       }
     }
   });
-  console.log(protectedProperties.join(', '));
 
   const handleDelete = () => {
     if (!hasProtectedProperty) {
@@ -118,7 +119,7 @@ const DeleteAction: FC<IProps> = ({ id, endPoint, close, title, record }) => {
       </Spin>
 
       <Modal
-        title={t('completion.successDel', { name: t(`${title}.name`) })}
+        title={t('completion.successDel')}
         open={openSuccess}
         onCancel={() => setSuccess(false)}
         footer={null}
