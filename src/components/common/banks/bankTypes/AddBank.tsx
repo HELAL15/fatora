@@ -45,7 +45,7 @@ const AddBank: FC<IProps> = ({ close, update, id }) => {
       setValue('bank_ar', bankInfo?.data.lang_name.ar);
       setValue('bank_en', bankInfo?.data.lang_name.en);
     }
-  });
+  }, [setValue, bankInfo?.data]);
 
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({

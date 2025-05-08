@@ -6,6 +6,7 @@ import { FieldValues } from 'react-hook-form';
 import DashboardModal from '../../../components/ui/DashboardModal';
 import DeleteAction from '../../../components/common/actions/DeleteAction';
 import AddCardType from '../../../components/common/banks/cardTypes/AddCardType';
+import ImageViewerTable from '../../../components/common/ImageViewerTable';
 
 const BankCardTypes = () => {
   const { t } = useTranslation();
@@ -15,7 +16,7 @@ const BankCardTypes = () => {
       key: '2',
       label: (
         <DashboardModal id={id} responsive modalTitle={title} title="edit">
-          <AddCardType />
+          <AddCardType update id={id} />
         </DashboardModal>
       )
     },
@@ -25,8 +26,7 @@ const BankCardTypes = () => {
         <DashboardModal id={id} modalTitle={title} title="delete">
           <DeleteAction
             id={id}
-            endPoint="education-levels"
-            title="level"
+            endPoint="bank/api/v1/bankCards"
             record={record}
           />
         </DashboardModal>
@@ -37,26 +37,21 @@ const BankCardTypes = () => {
   const columns: TableColumnsType = [
     {
       title: t('table.bankName'),
-      dataIndex: 'product',
+      dataIndex: 'name',
+      align: 'center'
+    },
+    {
+      title: t('table.max'),
+      dataIndex: 'is_max',
       align: 'center'
     },
     {
       title: t('table.bankImg'),
-      dataIndex: 'quantity',
-      align: 'center'
-    }
-  ];
-
-  const data = [
-    {
-      id: 1,
-      product: 'dummy data',
-      quantity: 200
-    },
-    {
-      id: 2,
-      product: 'dummy data',
-      quantity: 200
+      dataIndex: 'media',
+      align: 'center',
+      render: (media) => {
+        return <ImageViewerTable src={media} />;
+      }
     }
   ];
 
@@ -77,10 +72,9 @@ const BankCardTypes = () => {
         }
       />
       <Table
+        endPoint="bank/api/v1/bankCards"
         cols={columns}
         getMenu={getMenu}
-        hasSperateData={true}
-        sperateData={data}
       />
     </>
   );

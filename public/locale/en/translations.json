@@ -17,13 +17,15 @@
     "cost":"cost",
     "item":"item",
     "category":"category",
-    "itemNumber":"item number"
+    "itemNumber":"item number",
+    "max":"max"
   },
   "actions":{
     "edit":"edit",
     "delete":"delete"
   },
   "heading":{
+    "types":"Types of Bank Cards",
     "zakat":"zakat and income",
     "invoiceData":"invoice data",
     "banks":"banks",
@@ -31,6 +33,7 @@
     "selling":"add selling invoice"
   },
   "uploader":{
+    "cardType":"card logo",
     "title":"Click or drag to upload files",
     "invoiceLogo":"Attach the invoice logo",
     "bank":"bank logo"
@@ -40,6 +43,7 @@
   "delete":"delete",
   "edit":"edit",
   "button":{
+    "delete":"delete",
     "continue":"continue",
     "en":"en",
     "ar":"ar",
@@ -63,6 +67,8 @@
       "en":"(english)"
     },
     "label":{
+      "name":"name",
+      "max":"max",
       "clientName":"client name",
       "date":"date",
       "bankName":"bank name",
@@ -126,6 +132,9 @@
   },
   "categories":{
     "products":"products"
+  },
+  "completion":{
+    "delete":"are you sure you want delete"
   },
   "SAR":"SAR",
   "from":"from",
