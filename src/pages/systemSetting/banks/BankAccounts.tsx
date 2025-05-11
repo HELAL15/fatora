@@ -9,24 +9,22 @@ import AddBankAccount from '../../../components/common/banks/accounts/AddBankAcc
 
 const BankAccounts = () => {
   const { t } = useTranslation();
-  const title = 'bank.accounts';
   const getMenu = (id: string, record: FieldValues) => [
     {
       key: '2',
       label: (
-        <DashboardModal id={id} responsive modalTitle={title} title="edit">
-          <AddBankAccount />
+        <DashboardModal id={id} responsive title="edit">
+          <AddBankAccount update id={id} />
         </DashboardModal>
       )
     },
     {
       key: '3',
       label: (
-        <DashboardModal id={id} modalTitle={title} title="delete">
+        <DashboardModal id={id} title="delete">
           <DeleteAction
             id={id}
-            endPoint="education-levels"
-            title="level"
+            endPoint="bank/api/v1/bankAccounts"
             record={record}
           />
         </DashboardModal>
@@ -37,26 +35,23 @@ const BankAccounts = () => {
   const columns: TableColumnsType = [
     {
       title: t('table.bankName'),
-      dataIndex: 'product',
+      dataIndex: 'bank_name',
       align: 'center'
     },
     {
-      title: t('table.bankImg'),
-      dataIndex: 'quantity',
+      title: t('table.accountNumber'),
+      dataIndex: 'account_number',
       align: 'center'
-    }
-  ];
-
-  const data = [
-    {
-      id: 1,
-      product: 'dummy data',
-      quantity: 200
     },
     {
-      id: 2,
-      product: 'dummy data',
-      quantity: 200
+      title: t('table.ibanNumber'),
+      dataIndex: 'iban_number',
+      align: 'center'
+    },
+    {
+      title: t('table.swiftNumber'),
+      dataIndex: 'swift_number',
+      align: 'center'
     }
   ];
 
@@ -66,12 +61,7 @@ const BankAccounts = () => {
         title="bankAccounts"
         hasBack
         body={
-          <DashboardModal
-            inTable
-            responsive
-            title="add"
-            modalTitle="bank.accounts"
-          >
+          <DashboardModal inTable responsive title="add">
             <AddBankAccount />
           </DashboardModal>
         }
@@ -79,8 +69,7 @@ const BankAccounts = () => {
       <Table
         cols={columns}
         getMenu={getMenu}
-        hasSperateData={true}
-        sperateData={data}
+        endPoint="bank/api/v1/bankAccounts"
       />
     </>
   );

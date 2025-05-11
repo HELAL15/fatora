@@ -22,7 +22,7 @@ const systemItems = [
       {
         id: 3,
         title: 'branches',
-        add: '',
+        add: '/system/branches/add',
         view: '/system/branches'
       }
     ]

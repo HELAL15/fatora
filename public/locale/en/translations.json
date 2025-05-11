@@ -18,7 +18,10 @@
     "item":"item",
     "category":"category",
     "itemNumber":"item number",
-    "max":"max"
+    "max":"max",
+    "accountNumber":"account number",
+    "ibanNumber":"iban number",
+    "swiftNumber":"swift number"
   },
   "actions":{
     "edit":"edit",
@@ -89,7 +92,11 @@
       "cost":"cost",
       "item":"item",
       "category":"category",
-      "itemNumber":"item number"
+      "itemNumber":"item number",
+      "bank":"bank",
+      "accountNumber":"account number",
+      "ibanNumber":"iban number",
+      "swiftNumber":"swift number"
     },
     "placeholder":"enter {{label}}",
     "validation":{

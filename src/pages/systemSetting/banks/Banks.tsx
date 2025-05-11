@@ -46,7 +46,9 @@ const Banks = () => {
       dataIndex: 'media',
       align: 'center',
       render: (media) => {
-        return <ImageViewerTable src={media} />;
+        const url = media[0]?.original_url;
+
+        return <ImageViewerTable src={url} />;
       }
     }
   ];

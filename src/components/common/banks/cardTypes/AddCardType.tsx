@@ -1,15 +1,11 @@
 import { FieldValues, useForm } from 'react-hook-form';
-import FormInput from '../../FormInput';
-import ImageUploader from '../../ImageUploader';
-import Button from '../../../ui/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FC, useEffect } from 'react';
 import { getCardTypeSchema } from '../../../../lib/validation/cardTypeSchema';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getData, sendPayload } from '../../../../lib/utils/SendRequestes';
-import { toast } from 'sonner';
 import { Spin } from 'antd';
-import { useTranslation } from 'react-i18next';
+import useFetch from '../../../../hooks/useFetch';
+import usePost from '../../../../hooks/usePost';
+import CardTypeForm from './CardTypeForm';
 
 interface IProps {
   close?: () => void;
@@ -22,12 +18,9 @@ const AddCardType: FC<IProps> = ({ close, update, id }) => {
     ? `/bank/api/v1/bankCards/${id}`
     : '/bank/api/v1/bankCards';
 
-  const {
-    i18n: { language }
-  } = useTranslation();
-  const { data: cardType, isLoading } = useQuery({
-    queryKey: ['cardType', id, language],
-    queryFn: () => getData(endpoint),
+  const { data: cardType, isLoading } = useFetch({
+    endpoint,
+    keys: ['cardType', id ?? ''],
     enabled: !!update && !!id
   });
 
@@ -40,7 +33,6 @@ const AddCardType: FC<IProps> = ({ close, update, id }) => {
     formState: { errors },
     handleSubmit,
     setValue
-    // reset
   } = useForm(formObject);
 
   useEffect(() => {
@@ -51,30 +43,17 @@ const AddCardType: FC<IProps> = ({ close, update, id }) => {
     }
   }, [setValue, cardType?.data]);
 
-  const queryClient = useQueryClient();
-  const { mutate, isPending } = useMutation({
-    mutationFn: (data: FormData) => sendPayload(endpoint, data),
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({
-        queryKey: ['bank/api/v1/bankCards']
-      });
-      toast.success(data.message);
+  const { mutate, isPending } = usePost({
+    endpoint,
+    revalid: ['bank/api/v1/bankCards'],
+    onSuccess: () => {
       if (close) {
         close();
       }
-    },
-    onError: (error) => {
-      toast.error(error.message);
     }
   });
 
   const onSubmit = (data: FieldValues) => {
-    console.log(data);
-    // reset();
-    // if (close) {
-    //   close();
-    // }
-
     const formData = new FormData();
 
     formData.append('name[en]', data.name_en);
@@ -84,6 +63,11 @@ const AddCardType: FC<IProps> = ({ close, update, id }) => {
     if (data.file) {
       formData.append('media[0]', data.file);
     }
+    if (cardType?.data?.media && update) {
+      cardType?.data?.media?.forEach((media: FieldValues, index: string) => {
+        formData.append(`media_remove[${index}]`, media.id);
+      });
+    }
     if (update) {
       formData.append('_method', 'PUT');
     }
@@ -92,50 +76,14 @@ const AddCardType: FC<IProps> = ({ close, update, id }) => {
   return (
     <>
       <Spin spinning={isPending || isLoading} size="large">
-        <form
-          action=""
-          onSubmit={handleSubmit(onSubmit)}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        >
-          <FormInput
-            label="name"
-            name="name_ar"
-            lang="ar"
-            control={control}
-            errors={errors}
-          />
-          <FormInput
-            label="name"
-            name="name_en"
-            lang="en"
-            control={control}
-            errors={errors}
-          />
-          <div className="md:col-span-2">
-            <FormInput
-              label="max"
-              type="number"
-              placeholder="max"
-              name="is_max"
-              control={control}
-              errors={errors}
-            />
-          </div>
-          <div className="md:col-span-2">
-            <ImageUploader
-              control={control}
-              name="file"
-              errors={errors}
-              label="cardType"
-              editable
-              key={cardType?.data?.media}
-              defaultValue={update && cardType?.data?.media}
-            />
-          </div>
-          <div className="md:col-span-2 flex justify-end">
-            <Button title="save" />
-          </div>
-        </form>
+        <CardTypeForm
+          submit={handleSubmit(onSubmit)}
+          control={control}
+          errors={errors}
+          key={cardType?.data?.media[0]?.original_url}
+          keyV={cardType?.data?.media[0]?.original_url}
+          update={update}
+        />
       </Spin>
     </>
   );

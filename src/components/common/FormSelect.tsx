@@ -21,7 +21,7 @@ interface IProps<T extends FieldValues> {
   rules?: RegisterOptions<T>;
   placeholder?: string;
   errors: FieldErrors<T>;
-  data?: { id: string; name: string }[];
+  data?: { id: number | string; name: string }[];
   loading?: boolean;
   defaultVal?: PathValue<T, Path<T>>;
   onChange?: (value: string) => void;
@@ -91,23 +91,25 @@ const FormSelect = <T extends FieldValues>({
             popupMatchSelectWidth={false}
             onDropdownVisibleChange={(open) => setOpen(open)}
           >
-            {data?.map((item: { id: string; code?: string; name: string }) => (
-              <Option key={item.id} value={item.id}>
-                {hasColor ? (
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="size-6 rounded-full "
-                      style={{
-                        backgroundColor: item.code
-                      }}
-                    ></span>
-                    {item.code}
-                  </div>
-                ) : (
-                  item.name
-                )}
-              </Option>
-            ))}
+            {data?.map(
+              (item: { id: string | number; code?: string; name: string }) => (
+                <Option key={item.id} value={item.id}>
+                  {hasColor ? (
+                    <div className="flex items-center gap-2">
+                      <span
+                        className="size-6 rounded-full "
+                        style={{
+                          backgroundColor: item.code
+                        }}
+                      ></span>
+                      {item.code}
+                    </div>
+                  ) : (
+                    item.name
+                  )}
+                </Option>
+              )
+            )}
           </Select>
         )}
       />

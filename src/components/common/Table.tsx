@@ -1,13 +1,13 @@
-import { FC, memo, ReactNode, useEffect, useState } from 'react';
+import { FC, memo, ReactNode, useState } from 'react';
 import { Table, TableColumnsType } from 'antd';
-import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { ColumnType } from 'antd/es/table';
 import { TableRowSelection } from 'antd/es/table/interface';
 import { FieldValues } from 'react-hook-form';
-import { getData } from '../../lib/utils/SendRequestes';
 import NewActions from './NewActions';
 import clsx from 'clsx';
+import useFetch from '../../hooks/useFetch';
+import { useSearchParams } from 'react-router';
 
 /**
  * ==> props interface
@@ -51,30 +51,24 @@ const CustomTable: FC<IProps> = ({
   color = ''
 }) => {
   // vars
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const {
-    i18n: { language: lang },
-    t
-  } = useTranslation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = Number(searchParams.get('page')) || 1;
+  const pageCountParam = Number(searchParams.get('per_page')) || 10;
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [pageSize, setPageSize] = useState(10);
+  const { t } = useTranslation();
 
-  // fetch data
-  const { data: table, isLoading: loading } = useQuery({
-    queryKey: [endPoint, lang, currentPage, pageSize, query ? query : ''],
-    queryFn: () =>
-      getData(
-        `${endPoint}?page=${currentPage}&page_count=${pageSize}${
-          query ? query : ''
-        }`
-      ),
-    retry: false,
+  const endpoint = `${endPoint}?page=${pageParam}&per_page=${pageCountParam}${
+    query ? query : ''
+  }`;
+  const { data: table, isLoading: loading } = useFetch({
+    endpoint,
+    keys: [endPoint ?? '', pageParam, pageCountParam, query ? query : ''],
     enabled: !!endPoint
   });
 
   const tableDataView = hasSperateData ? sperateData : table?.data;
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [query]);
+
   // table columns
   const columns: TableColumnsType<IProps> = getMenu
     ? [
@@ -85,7 +79,7 @@ const CustomTable: FC<IProps> = ({
           render: (_: unknown, __: unknown, index: number) =>
             hasSperateData
               ? index + 1
-              : (currentPage - 1) * pageSize + index + 1,
+              : (pageParam - 1) * pageCountParam + index + 1,
 
           fixed: 'left'
         },
@@ -109,7 +103,7 @@ const CustomTable: FC<IProps> = ({
           render: (_: unknown, __: unknown, index: number) =>
             hasSperateData
               ? index + 1
-              : (currentPage - 1) * pageSize + index + 1,
+              : (pageParam - 1) * pageCountParam + index + 1,
 
           fixed: 'left'
         },
@@ -141,10 +135,23 @@ const CustomTable: FC<IProps> = ({
 
   // pagination function
   const handlePaginationChange = (page: number, size?: number) => {
-    setCurrentPage(page);
-    if (size && size !== pageSize) {
-      setPageSize(size);
+    const newSize = size || pageCountParam;
+    if (!hasSperateData) {
+      const params = new URLSearchParams(searchParams);
+
+      if (page > 1 || newSize !== 10) {
+        params.set('page', page.toString());
+        params.set('per_page', newSize.toString());
+      } else {
+        params.delete('page');
+        params.delete('per_page');
+      }
+
+      setSearchParams(params);
     }
+    // if (size && size !== pageSize) {
+    //   setPageSize(size);
+    // }
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
@@ -182,13 +189,13 @@ const CustomTable: FC<IProps> = ({
             dataSource={source}
             columns={columns}
             pagination={
-              !noPagination
+              noPagination
                 ? {
-                    current: currentPage,
+                    current: pageParam,
                     showSizeChanger: true,
                     pageSizeOptions: ['10', '25', '50', '100'],
-                    pageSize,
-                    total: table?.meta?.total || 0,
+                    pageSize: pageCountParam,
+                    total: table?.total || 0,
                     onChange: handlePaginationChange,
                     onShowSizeChange: handlePaginationChange,
                     position: ['bottomCenter']

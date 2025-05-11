@@ -3,7 +3,7 @@ import React, { FC, memo, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IoAddOutline } from 'react-icons/io5';
 import Button from './Button';
-import useToggle from '../../lib/hooks/useToggle';
+import useToggle from '../../hooks/useToggle';
 import clsx from 'clsx';
 
 interface IProps {

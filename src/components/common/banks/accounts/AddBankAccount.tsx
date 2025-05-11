@@ -1,16 +1,36 @@
 import { FieldValues, useForm } from 'react-hook-form';
-import FormInput from '../../FormInput';
-import Button from '../../../ui/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FC } from 'react';
-import FormSelect from '../../FormSelect';
+import { FC, useEffect } from 'react';
 import { getAddBankAccountSchema } from '../../../../lib/validation/addBankAccountSchema';
+import usePost from '../../../../hooks/usePost';
+import { Spin } from 'antd';
+import useFetch from '../../../../hooks/useFetch';
+import AccountForm from './AccountForm';
 
 interface IProps {
   close?: () => void;
+  update?: boolean;
+  id?: string;
 }
 
-const AddBankAccount: FC<IProps> = ({ close }) => {
+const AddBankAccount: FC<IProps> = ({ update, id, close }) => {
+  const endpoint = update
+    ? `bank/api/v1/bankAccounts/${id}`
+    : 'bank/api/v1/bankAccounts';
+
+  const { data: accountInfo, isLoading } = useFetch({
+    endpoint,
+    keys: ['account', id ?? ''],
+    enabled: !!update && !!id
+  });
+
+  const { data: banks, isLoading: banksLoading } = useFetch({
+    endpoint: 'bank/api/v1/list',
+    keys: ['banksList']
+  });
+
+  console.log(banks?.data);
+
   const formObject: FieldValues = {
     mode: 'all',
     resolver: yupResolver(getAddBankAccountSchema())
@@ -18,91 +38,50 @@ const AddBankAccount: FC<IProps> = ({ close }) => {
   const {
     control,
     formState: { errors },
-    handleSubmit
+    handleSubmit,
+    setValue
     // reset
   } = useForm(formObject);
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
-    // reset();
-    if (close) {
-      close();
+
+  useEffect(() => {
+    if (accountInfo?.data) {
+      console.log(accountInfo?.data.bank_id);
+
+      setValue('bank_id', accountInfo?.data.bank_id);
+      setValue('account_number', accountInfo?.data.account_number);
+      setValue('iban_number', accountInfo?.data.iban_number);
+      setValue('swift_number', accountInfo?.data.swift_number);
     }
+  }, [setValue, accountInfo?.data]);
+
+  const { mutate, isPending } = usePost({
+    endpoint,
+    revalid: ['bank/api/v1/bankAccounts'],
+    onSuccess: () => {
+      if (close) {
+        close();
+      }
+    }
+  });
+
+  const onSubmit = (data: FieldValues) => {
+    const payload = update ? { ...data, _method: 'PUT' } : data;
+
+    mutate(payload as FormData);
   };
+
   return (
     <>
-      <form
-        action=""
-        onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-      >
-        <FormSelect
-          label="country"
-          placeholder="country"
-          data={[]}
-          name="country"
+      <Spin size="large" spinning={isPending || isLoading}>
+        <AccountForm
           control={control}
           errors={errors}
+          select={banks?.data}
+          banksLoading={banksLoading}
+          accountInfo={accountInfo?.data?.bank_id}
+          submit={handleSubmit(onSubmit)}
         />
-        <FormSelect
-          label="city"
-          placeholder="city"
-          data={[]}
-          name="city"
-          control={control}
-          errors={errors}
-        />
-        <FormSelect
-          label="purpose"
-          placeholder="purpose"
-          data={[]}
-          name="purpose"
-          control={control}
-          errors={errors}
-        />
-        <FormSelect
-          label="bank"
-          placeholder="bank"
-          data={[]}
-          name="bank"
-          control={control}
-          errors={errors}
-        />
-        <FormSelect
-          label="branch"
-          placeholder="branch"
-          data={[]}
-          name="branch"
-          control={control}
-          errors={errors}
-        />
-        <FormInput
-          label="accountNumber"
-          placeholder="accountNumber"
-          name="accountNumber"
-          control={control}
-          errors={errors}
-        />
-        <div className="md:col-span-2 lg:col-span-3 grid gap-4 grid-cols-1 md:grid-cols-2">
-          <FormInput
-            label="iban"
-            placeholder="iban"
-            name="iban"
-            control={control}
-            errors={errors}
-          />
-          <FormInput
-            label="swift"
-            placeholder="swift"
-            name="swift"
-            control={control}
-            errors={errors}
-          />
-        </div>
-
-        <div className="md:col-span-2 lg:col-span-3 flex justify-end">
-          <Button title="save" />
-        </div>
-      </form>
+      </Spin>
     </>
   );
 };

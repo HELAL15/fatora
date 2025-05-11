@@ -18,7 +18,10 @@
     "item": "العنصر",
     "category": "الفئة",
     "itemNumber": "رقم العنصر",
-    "max":"الحد الأقصى"
+    "max":"الحد الأقصى",
+    "accountNumber":"رقم الحساب",
+    "ibanNumber":"رقم الاي بان",
+    "swiftNumber":"رقم السويفت"
   },
   "actions":{
     "edit":"تعديل",
@@ -90,7 +93,11 @@
     "cost": "التكلفة",
     "item": "العنصر",
     "category": "الفئة",
-    "itemNumber": "رقم العنصر"
+    "itemNumber": "رقم العنصر",
+    "bank":"البنك",
+    "accountNumber":"رقم الحساب",
+    "ibanNumber":"رقم الاي بان",
+    "swiftNumber":"رقم السويفت"
   },
   "validation":{
       "required":"هذا الحقل مطلوب"
