@@ -7,13 +7,13 @@
   --primaryColor: #247dbd;
 }
 
-/* @theme {
+@theme {
   --color-primary: #247dbd;
   --color-secondary: #0fac6d;
   --color-body: #f9fafe;
   --color-body-secondary: #ffffff;
   --font-main: 'Almarai', sans-serif;
-} */
+}
 
 * {
   box-sizing: border-box;

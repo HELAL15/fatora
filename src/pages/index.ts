@@ -7,7 +7,13 @@ export { default as SystemSettings } from './systemSetting/SystemSettings';
 // structure pages 
 export { default as CompanyProfile } from './systemSetting/structure/CompanyProfile';
 export { default as Employees } from './systemSetting/structure/Employees';
-export { default as Branches } from './systemSetting/structure/Branches';
+// == branches crud 
+export { default as Branches } from './systemSetting/structure/branchesStructure/Branches';
+export { default as Branch } from './systemSetting/structure/branchesStructure/Branch';
+export { default as AddBranch } from './systemSetting/structure/branchesStructure/AddBranch';
+export { default as UpdateBranch } from './systemSetting/structure/branchesStructure/UpdateBranch';
+
+
 export {default as LoginDashboard} from './LoginDashboard'
 //  banks pages 
 export { default as Banks } from './systemSetting/banks/Banks';

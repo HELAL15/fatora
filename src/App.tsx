@@ -21,7 +21,10 @@ import {
   SellingInvoices,
   AddSellingInvoice,
   ReturningInvoice,
-  AddReturningInvoice
+  AddReturningInvoice,
+  Branch,
+  AddBranch,
+  UpdateBranch
 } from './pages';
 import Layout from './components/layouts/Layout';
 import BranchLayout from './components/layouts/BranchLayout';
@@ -40,7 +43,16 @@ function App() {
             {/* company structure pages  */}
             <Route path="company-profile" element={<CompanyProfile />} />
             <Route path="employees" element={<Employees />} />
-            <Route path="branches" element={<Branches />} />
+            {/* branches structure pages */}
+            <Route path="branches">
+              <Route index element={<Branches />} />
+              <Route path="add" element={<AddBranch />} />
+              <Route path=":branchId">
+                <Route index element={<Branch />} />
+                <Route path="update" element={<UpdateBranch />} />
+              </Route>
+            </Route>
+
             {/* bank settings pages  */}
             <Route path="banks" element={<Banks />} />
             <Route path="bank-accounts" element={<BankAccounts />} />
