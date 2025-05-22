@@ -6,7 +6,6 @@ import { Link } from 'react-router';
 import DashboardModal from '../../../../components/ui/DashboardModal';
 import DeleteAction from '../../../../components/common/actions/DeleteAction';
 import { TableColumnsType } from 'antd';
-import ImageViewerTable from '../../../../components/common/ImageViewerTable';
 
 const Branches = () => {
   const { t } = useTranslation();
@@ -40,16 +39,6 @@ const Branches = () => {
       title: t('table.bankName'),
       dataIndex: 'name',
       align: 'center'
-    },
-    {
-      title: t('table.bankImg'),
-      dataIndex: 'media',
-      align: 'center',
-      render: (media) => {
-        const url = media[0]?.original_url;
-
-        return <ImageViewerTable src={url} />;
-      }
     }
   ];
 
