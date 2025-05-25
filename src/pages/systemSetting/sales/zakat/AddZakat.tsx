@@ -7,19 +7,19 @@ import Heading from '../../../../components/common/Heading';
 import { Radio } from 'antd';
 import { IoBan } from 'react-icons/io5';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getAddZakatSchema } from '../../../../lib/validation/addZakatSchema';
+import { getAddZakatSchema } from '../../../../validation/addZakatSchema';
 
 const AddZakat = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     mode: 'all',
     defaultValues: {
-      invoiceType: 'testing'
+      invoiceType: 'testing',
     },
-    resolver: yupResolver(getAddZakatSchema())
+    resolver: yupResolver(getAddZakatSchema()),
   });
 
   const onSubmit = (data: FieldValues) => {

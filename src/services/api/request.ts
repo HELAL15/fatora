@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { BASE_URL } from '../constant';
+import { BASE_URL } from '../../utils/constant';
 
 const lang = localStorage.getItem("i18nextLng") || "en";
 

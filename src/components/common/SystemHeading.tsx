@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import SysHeadingProps from '../../lib/interfaces/SysHeading';
+import SysHeadingProps from '../../types/SysHeading';
 
 const SystemHeading: FC<SysHeadingProps> = ({
   title,
   length = 0,
-  current = 0
+  current = 0,
 }) => {
   const { t } = useTranslation();
   return (

@@ -7,7 +7,7 @@
 // import { toast } from 'sonner';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { sendPayload } from '../lib/utils/SendRequestes';
+import { sendPayload } from '../utils/helpers/SendRequestes';
 import { toast } from 'sonner';
 
 // interface UsePostOptions<TData = any, TVariables = any> {
@@ -79,7 +79,7 @@ const usePost = ({ endpoint = '', revalid = [], onSuccess }: IProps) => {
     mutationFn: (data: FormData) => sendPayload(endpoint, data),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: [...revalid]
+        queryKey: [...revalid],
       });
       toast.success(data.message);
       if (onSuccess) {
@@ -88,7 +88,7 @@ const usePost = ({ endpoint = '', revalid = [], onSuccess }: IProps) => {
     },
     onError: (error) => {
       toast.error(error.message);
-    }
+    },
   });
 
   return { mutate, isPending, isError };

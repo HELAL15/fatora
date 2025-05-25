@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import ButtonProps from '../../lib/interfaces/ButtonInterface';
+import ButtonProps from '../../types/ButtonInterface';
 import { clsx } from 'clsx';
 import { Link } from 'react-router';
 
@@ -7,7 +7,7 @@ const LinkButton: FC<ButtonProps> = ({
   title = '',
   cx = '',
   icon,
-  href = ''
+  href = '',
 }) => {
   return (
     <>

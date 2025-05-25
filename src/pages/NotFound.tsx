@@ -1,6 +1,6 @@
 import { FaFileAlt } from 'react-icons/fa';
 import { IoArrowBack } from 'react-icons/io5';
-import useGoBack from '../lib/utils/GoBack';
+import useGoBack from '../utils/helpers/GoBack';
 
 const NotFound = () => {
   const goBack = useGoBack();

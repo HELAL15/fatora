@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { FieldValues } from 'react-hook-form';
 import { IoWarningOutline } from 'react-icons/io5';
-import { DeleteData } from '../../../lib/utils/SendRequestes';
+import { DeleteData } from '../../../utils/helpers/SendRequestes';
 import Button from '../../ui/Button';
 import { toast } from 'sonner';
 
@@ -55,19 +55,19 @@ const DeleteAction: FC<IProps> = ({ id, endPoint, close, title, record }) => {
             ? title === 'sub category'
               ? `sub-categories/${idParam}`
               : 'main-categories'
-            : endPoint
-        ]
+            : endPoint,
+        ],
       });
       toast.success(data.message);
     },
     onError: (error) => {
       queryClient.invalidateQueries({
-        queryKey: [endPoint === 'categories' ? 'main-categories' : endPoint]
+        queryKey: [endPoint === 'categories' ? 'main-categories' : endPoint],
       });
       if (error instanceof AxiosError) {
         message.error(error.response?.data?.message || error.message);
       }
-    }
+    },
   });
 
   const handleDelete = () => {
@@ -93,7 +93,7 @@ const DeleteAction: FC<IProps> = ({ id, endPoint, close, title, record }) => {
                   name: t(`${title}.name`),
                   reasons: protectedProperties
                     .map((prop) => t(`${prop}.name`))
-                    .join(', ')
+                    .join(', '),
                 })}
               </p>
             </>

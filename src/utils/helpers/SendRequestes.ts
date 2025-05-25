@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { FieldValues } from "react-hook-form";
-import { request } from "../api/request";
+import { request } from "../../services/api/request";
 
 export const sendPayload = async (endpoint: string, payload: FieldValues | FormData | Record<string, unknown>) => {
   const headers = payload instanceof FormData

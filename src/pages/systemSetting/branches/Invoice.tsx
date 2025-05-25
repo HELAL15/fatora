@@ -3,25 +3,25 @@ import invoiceLogo from '../../../assets/logo.png';
 import Table from '../../../components/common/Table';
 import TitleInfo from '../../../components/common/TitleInfo';
 import BankTypePrice from '../../../components/ui/BankTypePrice';
-import InvoicePaymentMethodsData from '../../../lib/data/InvoicePaymentMethodsData';
+import InvoicePaymentMethodsData from '../../../utils/data/InvoicePaymentMethodsData';
 import SectionWithContainer from '../../../components/common/SectionWithContainer';
 import Img from '../../../components/ui/Img';
 import Button from '../../../components/ui/Button';
-import useGoBack from '../../../lib/utils/GoBack';
+import useGoBack from '../../../utils/helpers/GoBack';
 import { useLayoutEffect, useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import FormInput from '../../../components/common/FormInput';
 import ImageUploader from '../../../components/common/ImageUploader';
-import { getImageSrc } from '../../../lib/utils/ImageSrc';
+import { getImageSrc } from '../../../utils/helpers/ImageSrc';
 import ColorSelector from '../../../components/common/ColorSelector';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import Heading from '../../../components/common/Heading';
-import { colorPrimary } from '../../../lib/constant';
+import { colorPrimary } from '../../../utils/constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { setInvoiceDesign } from '../../../store/features/designInvoiceSlice';
 import { RootState } from '../../../store/store';
-import { toBase64 } from '../../../lib/utils/toBase64';
+import { toBase64 } from '../../../utils/helpers/toBase64';
 
 const Invoice = () => {
   const { t } = useTranslation();
@@ -42,27 +42,27 @@ const Invoice = () => {
       title: 'المنتج',
       dataIndex: 'product',
       align: 'center',
-      responsive: ['xs', 'sm', 'md', 'lg']
+      responsive: ['xs', 'sm', 'md', 'lg'],
     },
     {
       title: 'الكمية',
       dataIndex: 'quantity',
       align: 'center',
-      responsive: ['xs', 'sm', 'md', 'lg']
-    }
+      responsive: ['xs', 'sm', 'md', 'lg'],
+    },
   ];
 
   const data = [
     {
       id: 1,
       product: 'dummy data',
-      quantity: 200
+      quantity: 200,
     },
     {
       id: 2,
       product: 'dummy data',
-      quantity: 200
-    }
+      quantity: 200,
+    },
   ];
 
   const [open, setOpen] = useState(false);
@@ -78,14 +78,14 @@ const Invoice = () => {
     handleSubmit,
     watch,
     reset,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     mode: 'all',
     defaultValues: {
       img: '',
       name: 'فاتورة ضريبية مبسطة',
-      primaryColor: colorPrimary
-    }
+      primaryColor: colorPrimary,
+    },
   });
   useLayoutEffect(() => {
     if (invoiceData) {
@@ -126,14 +126,14 @@ const Invoice = () => {
                   : 'uploaded-image',
               type: actualImageFile.type,
               size: actualImageFile.size,
-              base64: base64Image
+              base64: base64Image,
             }
-          : data.img
+          : data.img,
     };
 
     const dataWithoutImg = {
       name: data.name,
-      primaryColor: data.primaryColor
+      primaryColor: data.primaryColor,
     };
 
     dispatch(setInvoiceDesign(data?.img ? invoiceDesignData : dataWithoutImg));
@@ -202,7 +202,7 @@ const Invoice = () => {
             <div className="invoice-name space-y-2 text-center">
               <h2
                 style={{
-                  color: primaryColor
+                  color: primaryColor,
                 }}
                 className="text-primary font-bold text-2xl"
               >
@@ -236,7 +236,7 @@ const Invoice = () => {
             </div>
             <div
               style={{
-                background: primaryColor
+                background: primaryColor,
               }}
               className="qr-code size-28 max-md:mx-auto "
             />
@@ -257,7 +257,7 @@ const Invoice = () => {
 
           <div
             style={{
-              background: primaryColor
+              background: primaryColor,
             }}
             className={clsx(
               ` text-white py-5 px-4 grid place-items-center w-full`

@@ -4,18 +4,18 @@ import SectionWithContainer from '../../../../components/common/SectionWithConta
 import Wrapper from '../../../../components/common/Wrapper';
 import AddBranchForm from '../../../../components/structure/branches/AddBranchForm';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getBranchSchema } from '../../../../lib/validation/getBranchSchema';
+import { getBranchSchema } from '../../../../validation/getBranchSchema';
 
 const AddBranch = () => {
   const formObject: FieldValues = {
     mode: 'all',
-    resolver: yupResolver(getBranchSchema())
+    resolver: yupResolver(getBranchSchema()),
   };
 
   const {
     control,
     formState: { errors },
-    handleSubmit
+    handleSubmit,
   } = useForm(formObject);
 
   const onSubmit = (data: FieldValues) => {
@@ -23,9 +23,9 @@ const AddBranch = () => {
     const payload = {
       name: {
         en: nameEn,
-        ar: nameAr
+        ar: nameAr,
       },
-      ...rest
+      ...rest,
     };
     console.log('payload', payload);
   };

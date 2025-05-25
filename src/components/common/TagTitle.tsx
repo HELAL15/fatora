@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import TagInterface from '../../lib/interfaces/TagInterface';
+import TagInterface from '../../types/TagInterface';
 import { useTranslation } from 'react-i18next';
 
 const TagTitle: FC<TagInterface> = ({ title = 'DUMMY_TEXT' }) => {

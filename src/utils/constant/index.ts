@@ -1,4 +1,4 @@
-import { isGetTenantFromUrl } from "../utils/getBaseUrl";
+import { isGetTenantFromUrl } from "../helpers/getBaseUrl";
 
 export const colorPrimary = '#247DBD'
 export const colorSecondary = '#0FAC6D'

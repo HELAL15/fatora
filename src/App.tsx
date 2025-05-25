@@ -24,10 +24,10 @@ import {
   AddReturningInvoice,
   Branch,
   AddBranch,
-  UpdateBranch
+  UpdateBranch,
 } from './pages';
-import Layout from './components/layouts/Layout';
-import BranchLayout from './components/layouts/BranchLayout';
+import Layout from './layout/Layout';
+import BranchLayout from './layout/BranchLayout';
 
 function App() {
   return (

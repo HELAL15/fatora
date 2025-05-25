@@ -6,7 +6,7 @@ import { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { sendPayload } from '../lib/utils/SendRequestes';
+import { sendPayload } from '../utils/helpers/SendRequestes';
 import FormInput from '../components/common/FormInput';
 import Button from '../components/ui/Button';
 import Img from '../components/ui/Img';
@@ -23,9 +23,9 @@ const LoginDashboard = () => {
     handleSubmit,
     formState: { errors },
     reset,
-    control
+    control,
   } = useForm<IFormInput>({
-    mode: 'all'
+    mode: 'all',
   });
 
   // const dispatch = useDispatch();
@@ -42,14 +42,14 @@ const LoginDashboard = () => {
       Cookies.set('accessTokenAdmin', access_token, {
         secure: true,
         sameSite: 'strict',
-        path: '/'
+        path: '/',
       });
 
       const AdminData = {
         name: name,
         email: email,
         phone: phone,
-        id: id
+        id: id,
       };
       console.log(AdminData);
 
@@ -64,7 +64,7 @@ const LoginDashboard = () => {
       if (error instanceof AxiosError) {
         message.error(error.message || error.message);
       }
-    }
+    },
   });
 
   const onSubmit = (values: IFormInput) => {
@@ -99,8 +99,8 @@ const LoginDashboard = () => {
                 placeholder={t('email')}
                 rules={{
                   required: t(`input.error.required`, {
-                    label: t(`input.label.email`)
-                  })
+                    label: t(`input.label.email`),
+                  }),
                 }}
                 control={control}
                 errors={errors}
@@ -112,8 +112,8 @@ const LoginDashboard = () => {
                 placeholder={t('password')}
                 rules={{
                   required: t(`input.error.required`, {
-                    label: t(`input.label.password`)
-                  })
+                    label: t(`input.label.password`),
+                  }),
                 }}
                 control={control}
                 errors={errors}

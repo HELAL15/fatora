@@ -13,15 +13,15 @@ import Button from '../../../components/ui/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   getAddSellingInvoiceClientSchema,
-  getAddSellingInvoiceSchema
-} from '../../../lib/validation/addSellingInvoiceSchema';
+  getAddSellingInvoiceSchema,
+} from '../../../validation/addSellingInvoiceSchema';
 import { toast } from 'sonner';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 import {
   removeInvoiceItem,
   setInvoice,
-  updateInvoiceItem
+  updateInvoiceItem,
 } from '../../../store/features/addSellingInvoiceSlice';
 
 interface TableItem {
@@ -47,12 +47,12 @@ const AddSellingInvoice = () => {
     item: '',
     cost: '',
     price: '',
-    total: ''
+    total: '',
   };
 
   const defaultClientValues = {
     clientName: '',
-    date: ''
+    date: '',
   };
   const calculateTotals = useCallback(() => {
     const totalBills = tableData.reduce(
@@ -79,7 +79,7 @@ const AddSellingInvoice = () => {
     { id: 1, title: t('billValue'), desc: `${totalBills} ${t('SAR')}` },
     { id: 2, title: t('price'), desc: `${totalVats} ${t('SAR')}` },
     { id: 3, title: t('totalValue'), desc: `${totalValues} ${t('SAR')}` },
-    { id: 4, title: t('count'), desc: `${tableItemsCount} ${t('SAR')}` }
+    { id: 4, title: t('count'), desc: `${tableItemsCount} ${t('SAR')}` },
   ];
 
   const clients = [{ id: '1', name: 'ahmed helal' }];
@@ -92,11 +92,11 @@ const AddSellingInvoice = () => {
   const {
     control: clientControl,
     handleSubmit: handleClientSubmit,
-    formState: { errors: clientErrors }
+    formState: { errors: clientErrors },
   } = useForm({
     mode: 'onSubmit',
     defaultValues: defaultClientValues,
-    resolver: yupResolver(getAddSellingInvoiceClientSchema())
+    resolver: yupResolver(getAddSellingInvoiceClientSchema()),
   });
 
   // table form controller
@@ -104,11 +104,11 @@ const AddSellingInvoice = () => {
     control: tableControl,
     handleSubmit: handleTableSubmit,
     reset: resetTable,
-    formState: { errors: tableErrors }
+    formState: { errors: tableErrors },
   } = useForm({
     mode: 'onSubmit',
     defaultValues: defaultTableValues,
-    resolver: yupResolver(getAddSellingInvoiceSchema())
+    resolver: yupResolver(getAddSellingInvoiceSchema()),
   });
 
   // to add new item or update item bases on his status
@@ -116,7 +116,8 @@ const AddSellingInvoice = () => {
     (data: TableItem) => {
       const newItem = {
         ...data,
-        key: editingRow !== null ? editingRow : `${Date.now()}-${Math.random()}`
+        key:
+          editingRow !== null ? editingRow : `${Date.now()}-${Math.random()}`,
       };
 
       if (editingRow !== null) {
@@ -134,7 +135,7 @@ const AddSellingInvoice = () => {
         item: '',
         cost: '',
         price: '',
-        total: ''
+        total: '',
       });
     },
     [dispatch, tableData, editingRow, resetTable]
@@ -162,7 +163,7 @@ const AddSellingInvoice = () => {
         item: '',
         cost: '',
         price: '',
-        total: ''
+        total: '',
       });
       setEditingRow(null);
     },
@@ -180,8 +181,8 @@ const AddSellingInvoice = () => {
           billValue: totalBills,
           vat: totalVats,
           totalValue: totalValues,
-          count: tableItemsCount
-        }
+          count: tableItemsCount,
+        },
       };
 
       console.log('Final Data:', finalData);
@@ -272,32 +273,32 @@ const AddSellingInvoice = () => {
     {
       title: t('table.itemNumber'),
       dataIndex: 'number',
-      align: 'center' as const
+      align: 'center' as const,
     },
     {
       title: t('table.category'),
       dataIndex: 'category',
-      align: 'center' as const
+      align: 'center' as const,
     },
     {
       title: t('table.item'),
       dataIndex: 'item',
-      align: 'center' as const
+      align: 'center' as const,
     },
     {
       title: t('table.cost'),
       dataIndex: 'cost',
-      align: 'center' as const
+      align: 'center' as const,
     },
     {
       title: t('table.price'),
       dataIndex: 'price',
-      align: 'center' as const
+      align: 'center' as const,
     },
     {
       title: t('table.total'),
       dataIndex: 'total',
-      align: 'center' as const
+      align: 'center' as const,
     },
     {
       title: t('table.action'),
@@ -308,8 +309,8 @@ const AddSellingInvoice = () => {
           <Button icon={<FaEdit />} onClick={() => handleEdit(record.key)} />
           <Button icon={<FaTrash />} onClick={() => handleDelete(record.key)} />
         </div>
-      )
-    }
+      ),
+    },
   ];
 
   return (
@@ -355,7 +356,7 @@ const AddSellingInvoice = () => {
                 pagination={false}
                 loading={{
                   spinning: false,
-                  size: 'large'
+                  size: 'large',
                 }}
                 scroll={{ x: 1300 }}
                 bordered
@@ -367,8 +368,8 @@ const AddSellingInvoice = () => {
                         {inputRow}
                         {children}
                       </tbody>
-                    )
-                  }
+                    ),
+                  },
                 }}
               />
             </Wrapper>

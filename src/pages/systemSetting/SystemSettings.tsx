@@ -1,7 +1,7 @@
 import SystemCard from '../../components/common/SystemCard';
 import SystemHeading from '../../components/common/SystemHeading';
 import TagTitle from '../../components/common/TagTitle';
-import systemItems from '../../lib/data/SystemItemsData';
+import systemItems from '../../utils/data/SystemItemsData';
 
 const SystemSettings = () => {
   const systemItemsMapped = systemItems.map((item, index) => {

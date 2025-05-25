@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getData } from '../lib/utils/SendRequestes';
+import { getData } from '../utils/helpers/SendRequestes';
 import { useTranslation } from 'react-i18next';
 
 interface IProps {
@@ -10,12 +10,12 @@ interface IProps {
 
 const useFetch = ({ endpoint = '', keys = [], enabled }: IProps) => {
   const {
-    i18n: { language }
+    i18n: { language },
   } = useTranslation();
   const { data, isLoading, isError, refetch, isFetching } = useQuery({
     queryKey: [...keys, language],
     queryFn: () => getData(endpoint),
-    enabled: enabled
+    enabled: enabled,
   });
 
   return { data, isLoading, isError, refetch, isFetching };

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Outlet, useLocation } from 'react-router';
-import Header from './Header';
+import Header from '../components/layouts/Header';
 
 const BranchLayout = () => {
   const [collapsed, setCollapsed] = useState(true);

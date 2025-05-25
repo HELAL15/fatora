@@ -4,7 +4,7 @@ import { IoAddOutline } from 'react-icons/io5';
 import LinkButton from '../ui/LinkButton';
 import SectionWithContainer from './SectionWithContainer';
 import Button from '../ui/Button';
-import useGoBack from '../../lib/utils/GoBack';
+import useGoBack from '../../utils/helpers/GoBack';
 
 /**
  * ==> props interface
@@ -33,7 +33,7 @@ const Heading: FC<IProps> = ({
   modalTitle = 'Add New',
   icon = <IoAddOutline className="text-xl" />,
   body = null,
-  hasBack
+  hasBack,
 }) => {
   const { i18n, t } = useTranslation();
   const { language: lang } = i18n;
@@ -49,7 +49,7 @@ const Heading: FC<IProps> = ({
           {text && (
             <LinkButton
               title={t('tableHead.add', {
-                name: t(`tableHead.${text}`)
+                name: t(`tableHead.${text}`),
               })}
               href={href}
             />

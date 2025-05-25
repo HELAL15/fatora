@@ -1,7 +1,7 @@
 import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FC, useEffect } from 'react';
-import { getCardTypeSchema } from '../../../../lib/validation/cardTypeSchema';
+import { getCardTypeSchema } from '../../../../validation/cardTypeSchema';
 import { Spin } from 'antd';
 import useFetch from '../../../../hooks/useFetch';
 import usePost from '../../../../hooks/usePost';
@@ -21,18 +21,18 @@ const AddCardType: FC<IProps> = ({ close, update, id }) => {
   const { data: cardType, isLoading } = useFetch({
     endpoint,
     keys: ['cardType', id ?? ''],
-    enabled: !!update && !!id
+    enabled: !!update && !!id,
   });
 
   const formObject: FieldValues = {
     mode: 'all',
-    resolver: yupResolver(getCardTypeSchema(update))
+    resolver: yupResolver(getCardTypeSchema(update)),
   };
   const {
     control,
     formState: { errors },
     handleSubmit,
-    setValue
+    setValue,
   } = useForm(formObject);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const AddCardType: FC<IProps> = ({ close, update, id }) => {
       if (close) {
         close();
       }
-    }
+    },
   });
 
   const onSubmit = (data: FieldValues) => {

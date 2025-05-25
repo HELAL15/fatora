@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { ConfigProvider } from 'antd';
 import arEG from 'antd/locale/ar_EG';
 import enUS from 'antd/locale/en_US';
-import { colorPrimary, colorSecondary, font } from '../lib/constant';
+import { colorPrimary, colorSecondary, font } from '../utils/constant';
 
 interface IProps {
   children: ReactNode;
@@ -19,8 +19,8 @@ const AntdProvider: FC<IProps> = ({ children }) => {
       colorPrimary: colorPrimary,
       colorSecondary: colorSecondary,
       borderRadius: 10,
-      fontFamily: font
-    }
+      fontFamily: font,
+    },
   };
 
   return (

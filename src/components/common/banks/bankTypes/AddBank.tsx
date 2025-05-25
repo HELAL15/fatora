@@ -1,6 +1,6 @@
 import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getAddBankSchema } from '../../../../lib/validation/addBankValidation';
+import { getAddBankSchema } from '../../../../validation/addBankValidation';
 import { FC, useEffect } from 'react';
 import { Spin } from 'antd';
 import usePost from '../../../../hooks/usePost';
@@ -19,19 +19,19 @@ const AddBank: FC<IProps> = ({ close, update, id }) => {
   const { data: bankInfo, isLoading } = useFetch({
     endpoint,
     keys: ['bank', id ?? ''],
-    enabled: !!update && !!id
+    enabled: !!update && !!id,
   });
 
   const formObject: FieldValues = {
     mode: 'all',
-    resolver: yupResolver(getAddBankSchema(update))
+    resolver: yupResolver(getAddBankSchema(update)),
   };
 
   const {
     control,
     formState: { errors },
     handleSubmit,
-    setValue
+    setValue,
   } = useForm(formObject);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const AddBank: FC<IProps> = ({ close, update, id }) => {
       if (close) {
         close();
       }
-    }
+    },
   });
 
   const onSubmit = (data: FieldValues) => {

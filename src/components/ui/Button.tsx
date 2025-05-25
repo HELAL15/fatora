@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import ButtonProps from '../../lib/interfaces/ButtonInterface';
+import ButtonProps from '../../types/ButtonInterface';
 import { clsx } from 'clsx';
 import { useTranslation } from 'react-i18next';
 
@@ -10,7 +10,7 @@ const Button: FC<ButtonProps> = ({
   onClick,
   outline,
   type = 'submit',
-  disabled
+  disabled,
 }) => {
   const { t } = useTranslation();
   return (

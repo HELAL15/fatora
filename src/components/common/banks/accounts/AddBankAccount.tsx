@@ -1,7 +1,7 @@
 import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FC, useEffect } from 'react';
-import { getAddBankAccountSchema } from '../../../../lib/validation/addBankAccountSchema';
+import { getAddBankAccountSchema } from '../../../../validation/addBankAccountSchema';
 import usePost from '../../../../hooks/usePost';
 import { Spin } from 'antd';
 import useFetch from '../../../../hooks/useFetch';
@@ -21,25 +21,25 @@ const AddBankAccount: FC<IProps> = ({ update, id, close }) => {
   const { data: accountInfo, isLoading } = useFetch({
     endpoint,
     keys: ['account', id ?? ''],
-    enabled: !!update && !!id
+    enabled: !!update && !!id,
   });
 
   const { data: banks, isLoading: banksLoading } = useFetch({
     endpoint: 'bank/api/v1/list',
-    keys: ['banksList']
+    keys: ['banksList'],
   });
 
   console.log(banks?.data);
 
   const formObject: FieldValues = {
     mode: 'all',
-    resolver: yupResolver(getAddBankAccountSchema())
+    resolver: yupResolver(getAddBankAccountSchema()),
   };
   const {
     control,
     formState: { errors },
     handleSubmit,
-    setValue
+    setValue,
     // reset
   } = useForm(formObject);
 
@@ -61,7 +61,7 @@ const AddBankAccount: FC<IProps> = ({ update, id, close }) => {
       if (close) {
         close();
       }
-    }
+    },
   });
 
   const onSubmit = (data: FieldValues) => {

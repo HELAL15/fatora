@@ -5,7 +5,7 @@ import BranchHomeCard from '../../components/common/branch/BranchHomeCard';
 import { useTranslation } from 'react-i18next';
 import Button from '../../components/ui/Button';
 import { FaArrowLeft } from 'react-icons/fa';
-import useGoBack from '../../lib/utils/GoBack';
+import useGoBack from '../../utils/helpers/GoBack';
 
 const BranchHome = () => {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ const BranchHome = () => {
     <>
       <div
         style={{
-          backgroundImage: `url(${branchBg})`
+          backgroundImage: `url(${branchBg})`,
         }}
         className=" min-h-screen max-md:pb-6 bg-cover bg-center"
       >

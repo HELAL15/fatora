@@ -1,9 +1,10 @@
 import { useLayoutEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router';
-import Aside from './Aside';
-import Menu from './Menu';
-import Header from './Header';
+
 import { useMediaQuery } from 'react-responsive';
+import Aside from '../components/layouts/Aside';
+import Menu from '../components/layouts/Menu';
+import Header from '../components/layouts/Header';
 
 const Layout = () => {
   const isMobileOrTablet = useMediaQuery({ query: '(max-width: 991px)' });
