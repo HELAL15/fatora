@@ -5,7 +5,7 @@ import {
   AddSellingInvoice,
   BranchHome,
   ReturningInvoice,
-  SellingInvoices,
+  SellingInvoices
 } from '../pages';
 
 const BranchRoutes = () => {

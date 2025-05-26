@@ -11,6 +11,7 @@ const Button: FC<ButtonProps> = ({
   outline,
   type = 'submit',
   disabled,
+  ...rest
 }) => {
   const { t } = useTranslation();
   return (
@@ -19,11 +20,12 @@ const Button: FC<ButtonProps> = ({
         disabled={disabled}
         type={type}
         onClick={onClick}
+        {...rest}
         className={clsx(
           ` cursor-pointer capitalize rounded-rounded duration-300 px-4 md:px-6 py-2  border ${
             outline
-              ? 'bg-transparent border-primary  hover:bg-primary text-primary hover:text-white'
-              : 'bg-primary  border-transparent  hover:bg-secondary text-white'
+              ? 'bg-transparent border-primary active:bg-primary hover:bg-primary text-primary hover:text-white'
+              : 'bg-primary  border-transparent active:bg-secondary hover:bg-secondary text-white'
           }   ${cx}`
         )}
       >

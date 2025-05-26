@@ -18,7 +18,7 @@ import {
   SystemSettings,
   TaxPolicy,
   UpdateBranch,
-  ZakatInvoice,
+  ZakatInvoice
 } from '../pages';
 
 const MainRoutes = () => {

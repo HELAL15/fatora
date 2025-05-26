@@ -4,16 +4,19 @@ import MainRoutes from './MainRoutes';
 import BranchRoutes from './BranchRoutes';
 
 const AppRoutes = () => {
+  const mainRoutes = MainRoutes();
+  const branchRoutes = BranchRoutes();
+
   return (
     <>
       <Routes>
         <Route path="/login" element={<LoginDashboard />} />
 
         {/* super admin routes  */}
-        <MainRoutes />
+        {mainRoutes}
 
         {/* branch routes  */}
-        <BranchRoutes />
+        {branchRoutes}
 
         {/* ** not found page */}
         <Route path="*" element={<NotFound />} />
