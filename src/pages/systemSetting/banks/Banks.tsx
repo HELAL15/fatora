@@ -18,7 +18,7 @@ const Banks = () => {
         <DashboardModal id={id} responsive modalTitle={title} title="edit">
           <AddBank update id={id} />
         </DashboardModal>
-      )
+      ),
     },
     {
       key: '3',
@@ -31,15 +31,15 @@ const Banks = () => {
             record={record}
           />
         </DashboardModal>
-      )
-    }
+      ),
+    },
   ];
 
   const columns: TableColumnsType = [
     {
       title: t('table.bankName'),
       dataIndex: 'name',
-      align: 'center'
+      align: 'center',
     },
     {
       title: t('table.bankImg'),
@@ -49,8 +49,8 @@ const Banks = () => {
         const url = media[0]?.original_url;
 
         return <ImageViewerTable src={url} />;
-      }
-    }
+      },
+    },
   ];
 
   return (
@@ -59,7 +59,7 @@ const Banks = () => {
         title="banks"
         hasBack
         body={
-          <DashboardModal inTable responsive title="add" modalTitle="bank.bank">
+          <DashboardModal inTable responsive title="add" modalTitle={title}>
             <AddBank />
           </DashboardModal>
         }
